@@ -4,7 +4,7 @@
 
 ```shell
 bash configure-dev.sh
-docker compose up -d --build
+docker compose up --profile dev -d --build
 ```
 
 Приложение будет доступно на порту
