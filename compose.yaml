@@ -1,0 +1,35 @@
+name: 'otvetoved-backend'
+services:
+  api-dev:
+    build: ./app
+    image: 127.0.0.1:5000/otbetoved-backend-app
+    env_file:
+      - config/.env.app.sample
+      - config/.env.app
+    ports:
+      - ${COMPOSE_APP_DEV_EXPOSE_HOST}:${COMPOSE_APP_DEV_EXPOSE_PORT}:8000
+    profiles:
+      - dev
+    depends_on:
+      - postgres
+  api-prod:
+    build:
+      context: ./app
+      dockerfile: ./app/Dockerfile.prod
+    profiles:
+      - prod
+    depends_on:
+      - postgres
+  nginx:
+    build: ./nginx
+    image: 127.0.0.1:5000/otbetoved-backend-nginx
+    env_file:
+      - config/.env.nginx.sample
+      - config/.env.nginx
+    profiles:
+      - prod
+  postgres:
+    image: postgres:16
+    env_file:
+      - config/.env.postgres.sample
+      - config/.env.postgres
