@@ -14,7 +14,7 @@
 После развёртывания, вы сможете получить доступ к компонентам приложения по следующим адресам
 
 * Frontend (over nginx): http://127.0.0.1:8010
-* Backend (over nginx): http://127.0.0.1:8010
+* Backend (over nginx): http://127.0.0.1:8010/api
 * Backend (direct): http://127.0.0.1:8008
 * Postgres: 127.0.0.1:5432
 
