@@ -4,8 +4,9 @@
 
 Развёртывание в целях разработки
 
-1. Скопируйте файл .env.sample в корне проекта в новый файл .env
-2. Выполните в корне проекта команду
+1. Установите docker engine (для windows проще установить docker desktop, в комплекте с которым установится и docker engine)
+2. Скопируйте файл .env.sample в корне проекта в новый файл .env
+3. Выполните в корне проекта команду
    ```shell
    docker compose up -d --build
    ```
@@ -31,4 +32,3 @@
 1. Перезагрузить сервис -- `docker compose restart service_name`
 2. Просмотреть логи сервиса -- `docker compose logs service_name`
 3. Посмотреть логи сервиса за последние 5 минут и продолжить получать новые логи -- `docker compose logs service_name --since=5m -f`
-
