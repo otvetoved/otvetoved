@@ -1,0 +1,51 @@
+name: 'otvetoved-application-dev'
+
+services:
+  backend:
+    build: ./backend
+    env_file:
+      - backend/.env.sample
+      - backend/.env
+    ports:
+      - ${COMPOSE_BACKEND_DEV_EXPOSE_HOST}:${COMPOSE_BACKEND_DEV_EXPOSE_PORT}:8000
+    depends_on:
+      - postgres
+    volumes:
+      - ./backend:/usr/src/app
+  frontend:
+    build:
+      context: ./frontend
+    env_file:
+      - frontend/.env.sample
+      - frontend/.env
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/usr/src/app
+    command: npm run docker-dev
+  nginx:
+    build: ./nginx
+    env_file:
+      - nginx/.env.sample
+      - nginx/.env
+    ports:
+      - ${COMPOSE_NGINX_HTTP_HOST}:${COMPOSE_NGINX_HTTP_PORT}:8000
+    depends_on:
+      - backend
+      - frontend
+  postgres:
+    image: postgres:16
+    env_file:
+      - postgres/.env.sample
+      - postgres/.env
+    ports:
+      - ${COMPOSE_POSTGRES_EXPOSE_HOST}:${COMPOSE_POSTGRES_EXPOSE_PORT}:5432
+    volumes:
+      - database:/var/lib/postgresql/data
+  run-migrations:
+    build: ./backend
+    depends_on:
+      - backend
+    command: alembic upgrade head
+volumes:
+  database:

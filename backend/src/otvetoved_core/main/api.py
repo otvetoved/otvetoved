@@ -8,7 +8,9 @@ from otvetoved_core.infrastructure.database import DatabaseProvider
 from otvetoved_core.presentation import api
 
 
-app = FastAPI()
+app = FastAPI(
+    root_path="/api",
+)
 
 app.include_router(api.router)
 

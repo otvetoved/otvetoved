@@ -55,7 +55,7 @@ class CreateQuestionDTO(BaseDTO):
 
 
 @router.post(
-    "/",
+    "",
     response_model=QuestionDTO,
 )
 @inject
@@ -78,7 +78,7 @@ QuestionListDTO = BaseRootDTO[list[QuestionDTO]]
 
 
 @router.get(
-    "/",
+    "",
     response_model=QuestionListDTO,
 )
 @inject
