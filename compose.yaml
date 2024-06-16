@@ -5,7 +5,8 @@ services:
     build: ./backend
     env_file:
       - backend/.env.sample
-      - backend/.env
+      - path: backend/.env
+        required: false
     ports:
       - ${COMPOSE_BACKEND_DEV_EXPOSE_HOST}:${COMPOSE_BACKEND_DEV_EXPOSE_PORT}:8000
     depends_on:
@@ -17,7 +18,8 @@ services:
       context: ./frontend
     env_file:
       - frontend/.env.sample
-      - frontend/.env
+      - path: frontend/.env
+        required: false
     depends_on:
       - backend
     volumes:
@@ -27,7 +29,8 @@ services:
     build: ./nginx
     env_file:
       - nginx/.env.sample
-      - nginx/.env
+      - path: nginx/.env
+        required: false
     ports:
       - ${COMPOSE_NGINX_HTTP_HOST}:${COMPOSE_NGINX_HTTP_PORT}:8000
     depends_on:
@@ -37,7 +40,8 @@ services:
     image: postgres:16
     env_file:
       - postgres/.env.sample
-      - postgres/.env
+      - path: postgres/.env
+        required: false
     ports:
       - ${COMPOSE_POSTGRES_EXPOSE_HOST}:${COMPOSE_POSTGRES_EXPOSE_PORT}:5432
     volumes:
