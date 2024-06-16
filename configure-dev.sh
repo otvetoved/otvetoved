@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-cp ./config/.env.app.sample ./config/.env.app
-cp ./config/.env.nginx.sample ./config/.env.nginx
-cp ./config/.env.postgres.sample ./config/.env.postgres
+cp ./app/.env.sample ./app/.env
+cp ./nginx/.env.sample ./nginx/.env
+cp ./postgres/.env.sample ./postgres/.env
 
 cp .env.sample .env

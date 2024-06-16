@@ -2,8 +2,8 @@ from typing import TYPE_CHECKING
 
 from sqlalchemy.orm import Mapped
 
-from app.src.otvetoved_core.infrastructure.entity import BaseEntity
-from app.src.otvetoved_core.infrastructure.database import RelationalMapper
+from .entity import BaseEntity
+from .database import RelationalMapper
 
 
 class BaseRelationalObject(BaseEntity, RelationalMapper):

@@ -8,14 +8,17 @@ name = "otvetoved-application"
 version = "0.0.1"
 license = {file = "LICENCE"}
 dependencies = [
-    "fastapi~=0.111.0",
-    "psycopg[binary]",
     "dishka",
+    "pydantic-settings",
+    "psycopg[binary]",
+    "sqlalchemy",
+    "fastapi~=0.111.0",
+    "alembic",
 ]
 
 
 [project.optional-dependencies]
-linter = [
+dev = [
     "ruff",
 ]
 

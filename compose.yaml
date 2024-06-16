@@ -4,8 +4,8 @@ services:
     build: ./app
     image: 127.0.0.1:5000/otbetoved-backend-app
     env_file:
-      - config/.env.app.sample
-      - config/.env.app
+      - app/.env.sample
+      - app/.env
     ports:
       - ${COMPOSE_APP_DEV_EXPOSE_HOST}:${COMPOSE_APP_DEV_EXPOSE_PORT}:8000
     profiles:
@@ -16,6 +16,10 @@ services:
     build:
       context: ./app
       dockerfile: ./app/Dockerfile.prod
+    image: 127.0.0.1:5000/otbetoved-backend-app
+    env_file:
+      - app/.env.sample
+      - app/.env
     profiles:
       - prod
     depends_on:
@@ -24,12 +28,14 @@ services:
     build: ./nginx
     image: 127.0.0.1:5000/otbetoved-backend-nginx
     env_file:
-      - config/.env.nginx.sample
-      - config/.env.nginx
+      - nginx/.env.sample
+      - config/.env
     profiles:
       - prod
   postgres:
     image: postgres:16
     env_file:
-      - config/.env.postgres.sample
-      - config/.env.postgres
+      - postgres/.env.sample
+      - postgres/.env
+    ports:
+      - ${COMPOSE_POSTGRES_EXPOSE_HOST}:${COMPOSE_POSTGRES_EXPOSE_PORT}:5432

@@ -6,11 +6,11 @@ from typing import (
 from sqlalchemy import select, func, delete
 from sqlalchemy.sql.base import ExecutableOption
 
-from app.src.otvetoved_core.infrastructure.relational_entity import (
+from .relational_entity import (
     BaseRelationalObject,
     BaseRelationalEntity,
 )
-from app.src.otvetoved_core.infrastructure.database import DatabaseSession
+from .database import DatabaseSession
 
 
 RelationalObjectT = TypeVar("RelationalObjectT", bound=BaseRelationalObject)
