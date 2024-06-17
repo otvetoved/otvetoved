@@ -8,7 +8,7 @@ from alembic import context
 
 from otvetoved_core.infrastructure.config import ConfigProvider, Config
 from otvetoved_core.infrastructure.database import RelationalMapper
-from otvetoved_core.domain.models import *  # noqa: F401
+from otvetoved_core.domain.models import *  # noqa: F401, F403
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
