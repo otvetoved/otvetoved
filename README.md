@@ -29,6 +29,6 @@
 2. backend
 
 ### Docker compose команды
-1. Перезагрузить сервис -- `docker compose restart service_name`
+1. Перезагрузить сервис -- `docker cowmpose restart service_name`
 2. Просмотреть логи сервиса -- `docker compose logs service_name`
 3. Посмотреть логи сервиса за последние 5 минут и продолжить получать новые логи -- `docker compose logs service_name --since=5m -f`

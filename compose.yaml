@@ -46,10 +46,15 @@ services:
       - ${COMPOSE_POSTGRES_EXPOSE_HOST}:${COMPOSE_POSTGRES_EXPOSE_PORT}:5432
     volumes:
       - database:/var/lib/postgresql/data
+    healthcheck:
+      test: pg_isready
+      interval: 5s
+      timeout: 5s
+      retries: 10
   run-migrations:
     build: ./backend
     depends_on:
-      - backend
+      - postgres
     command: alembic upgrade head
 volumes:
   database:
