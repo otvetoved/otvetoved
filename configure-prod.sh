@@ -7,3 +7,4 @@ cp ./postgres/.env.sample ./postgres/.env
 cp ./frontend/.env.sample ./frontend/.env
 
 cp .env.sample .env
+cp .env.prod.sample .env.prod
