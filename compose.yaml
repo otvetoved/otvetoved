@@ -37,7 +37,7 @@ services:
       - backend
       - frontend
     volumes:
-      - ./nginx:/var
+      - ./nginx:/nginx
   postgres:
     image: postgres:16
     env_file:
