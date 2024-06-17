@@ -35,8 +35,8 @@ jobs:
       - name: Sync, rebuild and restart production
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
+          host: ${{ vars.SSH_HOST }}
+          username: ${{ vars.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: 22
           script: cd otvetoved && git pull && docker compose up --build -d
