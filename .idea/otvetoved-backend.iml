@@ -3,13 +3,15 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$/backend">
       <sourceFolder url="file://$MODULE_DIR$/backend/src" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/.venv" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/src/otvetoved_application.egg-info" />
     </content>
     <content url="file://$MODULE_DIR$/frontend">
       <sourceFolder url="file://$MODULE_DIR$/frontend/src" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/nginx" />
     <content url="file://$MODULE_DIR$/postgres" />
-    <orderEntry type="jdk" jdkName="Python 3.12 (otvetoved-backend)" jdkType="Python SDK" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
