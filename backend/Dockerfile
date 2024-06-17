@@ -8,6 +8,6 @@ COPY pyproject.toml pyproject.toml
 RUN pip-compile
 RUN pip install -r requirements.txt
 COPY . .
-RUN pip install --compile -e .
+RUN pip install --compile --no-cache-dir --no-deps -e .
 
 CMD otvetoved-api
