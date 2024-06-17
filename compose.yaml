@@ -12,7 +12,7 @@ services:
     depends_on:
       - postgres
     volumes:
-      - ./backend:/usr/src/app
+      - ./backend/src:/usr/src/app/src
   frontend:
     build:
       context: ./frontend
@@ -23,7 +23,7 @@ services:
     depends_on:
       - backend
     volumes:
-      - ./frontend:/usr/src/app
+      - ./frontend/src:/usr/src/app/src
     command: npm run docker-dev
   nginx:
     build: ./nginx
