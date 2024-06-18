@@ -10,4 +10,6 @@ RUN pip install -r requirements.txt
 COPY . .
 RUN pip install --compile --no-cache-dir --no-deps -e .
 
+RUN configure.sh
+
 CMD otvetoved-api
