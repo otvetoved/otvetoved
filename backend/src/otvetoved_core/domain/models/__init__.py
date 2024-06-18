@@ -7,3 +7,12 @@ from .tag import (
     Tag,
     QuestionTag,
 )
+
+
+__all__ = [
+    "User",
+    "Question",
+    "QuestionAnswer",
+    "Tag",
+    "QuestionTag",
+]
