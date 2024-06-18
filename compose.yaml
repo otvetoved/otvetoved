@@ -4,9 +4,7 @@ services:
   backend:
     build: ./backend
     env_file:
-      - backend/.env.sample
-      - path: backend/.env
-        required: false
+      - backend/.env
     ports:
       - ${COMPOSE_BACKEND_DEV_EXPOSE_HOST}:${COMPOSE_BACKEND_DEV_EXPOSE_PORT}:8000
     depends_on:
@@ -17,9 +15,7 @@ services:
     build:
       context: ./frontend
     env_file:
-      - frontend/.env.sample
-      - path: frontend/.env
-        required: false
+      - frontend/.env
     depends_on:
       - backend
     volumes:
@@ -28,22 +24,16 @@ services:
   nginx:
     build: ./nginx
     env_file:
-      - nginx/.env.sample
-      - path: nginx/.env
-        required: false
+      - nginx/.env
     ports:
       - ${COMPOSE_NGINX_HTTP_HOST}:${COMPOSE_NGINX_HTTP_PORT}:8000
     depends_on:
       - backend
       - frontend
-    volumes:
-      - ./nginx:/nginx
   postgres:
     image: postgres:16
     env_file:
-      - postgres/.env.sample
-      - path: postgres/.env
-        required: false
+      - postgres/.env
     ports:
       - ${COMPOSE_POSTGRES_EXPOSE_HOST}:${COMPOSE_POSTGRES_EXPOSE_PORT}:5432
     volumes:
@@ -58,5 +48,7 @@ services:
     depends_on:
       - postgres
     command: alembic upgrade head
+    env_file:
+      - backend/.env
 volumes:
   database:
