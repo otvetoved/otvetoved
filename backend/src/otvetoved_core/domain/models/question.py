@@ -1,29 +1,21 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
+from otvetoved_core.domain.models.user import User
 from otvetoved_core.infrastructure.relational_entity import (
     BaseRelationalEntity,
 )
 
 
-class User(BaseRelationalEntity):
-    __tablename__ = "user"
-
-    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-
-    first_name: Mapped[str | None]
-    last_name: Mapped[str | None]
-    username: Mapped[str]
-
-
-class QuestionTag(BaseRelationalEntity):
-    __tablename__ = "question_tag"
-
-    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    question_id: Mapped[int] = mapped_column(ForeignKey("question.id"))
-    tag_id: Mapped[int] = mapped_column(ForeignKey("tag.id"))
+if TYPE_CHECKING:
+    from otvetoved_core.domain.models.tag import (  # noqa: F401
+        Tag,
+        QuestionTag,
+    )
 
 
 class Question(BaseRelationalEntity):
@@ -34,7 +26,7 @@ class Question(BaseRelationalEntity):
     brief: Mapped[str]
     text: Mapped[str]
 
-    tags: Mapped[list[Tag]] = relationship(secondary=QuestionTag.__table__)
+    tags: Mapped[list[Tag]] = relationship(secondary="QuestionTag.__table__")
     created_by_user: Mapped[User] = relationship()
 
 
@@ -43,11 +35,3 @@ class QuestionAnswer(BaseRelationalEntity):
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     question_id: Mapped[int] = mapped_column(ForeignKey("question.id"))
-
-
-class Tag(BaseRelationalEntity):
-    __tablename__ = 'tag'
-
-    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    name: Mapped[str]
-    description: Mapped[str]
