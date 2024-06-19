@@ -40,4 +40,4 @@ jobs:
           username: ${{ vars.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: 22
-          script: cd otvetoved && git pull && docker compose -f compose.prod.yaml up --build -d --env-file .env.prod
+          script: cd otvetoved && git pull && docker compose -f compose.prod.yaml --env-file .env.prod up --build -d
