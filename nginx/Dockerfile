@@ -2,4 +2,4 @@ FROM nginx:mainline
 
 RUN rm /etc/nginx/conf.d/default.conf
 
-COPY . /etc/nginx/conf.d
+COPY nginx.conf /etc/nginx/conf.d
