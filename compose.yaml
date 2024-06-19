@@ -3,6 +3,7 @@ name: 'otvetoved-application-dev'
 services:
   backend:
     build: ./backend
+    image: ${COMPOSE_REGISTRY_URI}/otbetoved-backend:dev
     env_file:
       - backend/.env
     ports:
@@ -14,6 +15,7 @@ services:
   frontend:
     build:
       context: ./frontend
+    image: ${COMPOSE_REGISTRY_URI}/otbetoved-frontend:dev
     env_file:
       - frontend/.env
     depends_on:
@@ -23,6 +25,7 @@ services:
     command: npm run docker-dev
   nginx:
     build: ./nginx
+    image: ${COMPOSE_REGISTRY_URI}/otbetoved-nginx:dev
     env_file:
       - nginx/.env
     ports:
@@ -47,6 +50,7 @@ services:
       retries: 10
   run-migrations:
     build: ./backend
+    image: ${COMPOSE_REGISTRY_URI}/otbetoved-run-migrations:dev
     depends_on:
       - postgres
     command: alembic upgrade head
