@@ -10,12 +10,10 @@ from otvetoved_core.infrastructure.relational_entity import (
     BaseRelationalEntity,
 )
 
-
-if TYPE_CHECKING:
-    from otvetoved_core.domain.models.tag import (  # noqa: F401
-        Tag,
-        QuestionTag,
-    )
+from otvetoved_core.domain.models.tag import (
+    Tag,
+    QuestionTag,
+)
 
 
 class Question(BaseRelationalEntity):
@@ -26,7 +24,7 @@ class Question(BaseRelationalEntity):
     brief: Mapped[str]
     text: Mapped[str]
 
-    tags: Mapped[list[Tag]] = relationship(secondary="QuestionTag.__table__")
+    tags: Mapped[list[Tag]] = relationship(secondary=QuestionTag.__table__)
     created_by_user: Mapped[User] = relationship()
 
 
