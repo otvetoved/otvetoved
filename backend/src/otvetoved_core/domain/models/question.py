@@ -22,8 +22,8 @@ class Question(BaseRelationalEntity):
     brief: Mapped[str]
     text: Mapped[str]
 
-    tags: Mapped[list[Tag]] = relationship(secondary=QuestionTag.__table__)
-    created_by_user: Mapped[User] = relationship()
+    tags: Mapped[list[Tag]] = relationship(secondary=QuestionTag.__table__, lazy='selectin')
+    created_by_user: Mapped[User] = relationship(lazy='selectin')
 
 
 class QuestionAnswer(BaseRelationalEntity):

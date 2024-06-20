@@ -1,17 +1,17 @@
 from typing import Annotated
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from pydantic import Field
 from dishka.integrations.fastapi import inject, FromDishka
 from sqlalchemy import select
 
 from otvetoved_core.infrastructure.database import DatabaseSession
 from otvetoved_core.infrastructure.dto import BaseDTO, BaseRootDTO
+from otvetoved_core.domain.models.tag import Tag
 
 from otvetoved_core.domain.models.question import Question
 
 router = APIRouter(prefix="/questions")
-
 
 QuestionBrief = Annotated[str, Field(
     title=
@@ -19,7 +19,6 @@ QuestionBrief = Annotated[str, Field(
     description=
     "Summary of the question to be displayed as question header.",
 )]
-
 
 QuestionText = Annotated[str, Field(
     title=
@@ -29,13 +28,46 @@ QuestionText = Annotated[str, Field(
     "contains enough information about the question."
 )]
 
-
 QuestionId = Annotated[int, Field(
     title=
     "Question id.",
     description=
     "Question identifier.",
 )]
+
+QuestionUserID = Annotated[int, Field(
+    title=
+    "User id.",
+    description=
+    "Id of user which created this question.",
+)]
+
+TagID = Annotated[int, Field(
+    title=
+    "Tag id",
+    description=
+    "Tag id.",
+)]
+
+TagName = Annotated[str, Field(
+    title=
+    "Tag name.",
+    description=
+    "Name of this tag.",
+)]
+
+TagDescription = Annotated[str, Field(
+    title=
+    "Tag description.",
+    description=
+    "Description of this tag.",
+)]
+
+
+class QuestionTag(BaseDTO):
+    id: TagID
+    name: TagName
+    description: TagDescription
 
 
 class QuestionDTO(BaseDTO):
@@ -51,6 +83,15 @@ class CreateQuestionDTO(BaseDTO):
 
     brief: QuestionBrief
     text: QuestionText
+
+
+class QuestionFullInfoDTO(BaseDTO):
+    """ A question with full info"""
+    id: QuestionId
+    brief: QuestionBrief
+    text: QuestionText
+    created_by_user_id: QuestionUserID
+    tags: list[QuestionTag]
 
 
 @router.post(
@@ -88,3 +129,19 @@ async def get_questions_list(
     questions = await session.scalars(stmt)
     return QuestionListDTO.model_validate(questions)
 
+
+@router.get(
+    "{question_id}",
+    response_model=QuestionFullInfoDTO,
+)
+@inject
+async def get_question(
+        session: FromDishka[DatabaseSession],
+        question_id: int,
+):
+    stmt = select(Question).where(Question.id == question_id)
+    questions = await session.scalars(stmt)
+    question = questions.one_or_none()
+    if not question:
+        raise HTTPException(404, "Question with this is not found")
+    return QuestionFullInfoDTO.model_validate(question)
