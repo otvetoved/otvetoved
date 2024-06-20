@@ -7,7 +7,6 @@ from sqlalchemy import select
 
 from otvetoved_core.infrastructure.database import DatabaseSession
 from otvetoved_core.infrastructure.dto import BaseDTO, BaseRootDTO
-from otvetoved_core.domain.models.tag import Tag
 
 from otvetoved_core.domain.models.question import Question
 
