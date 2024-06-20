@@ -14,4 +14,5 @@ class User(BaseRelationalEntity):
 
     first_name: Mapped[str | None]
     last_name: Mapped[str | None]
-    username: Mapped[str]
+    username: Mapped[str] = mapped_column(unique=True)
+    password: Mapped[str]

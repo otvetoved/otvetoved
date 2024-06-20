@@ -87,3 +87,4 @@ async def get_questions_list(
     stmt = select(Question)
     questions = await session.scalars(stmt)
     return QuestionListDTO.model_validate(questions)
+

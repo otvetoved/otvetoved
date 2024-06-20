@@ -1,4 +1,5 @@
 from .user import User
+from .user_session import UserSession
 from .question import (
     Question,
     QuestionAnswer,
@@ -15,4 +16,5 @@ __all__ = [
     "QuestionAnswer",
     "Tag",
     "QuestionTag",
+    "UserSession",
 ]
