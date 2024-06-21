@@ -1,10 +1,11 @@
 from typing import Annotated
 
 from fastapi import APIRouter, HTTPException
-from pydantic import Field
+from pydantic import Field, UUID4
 from dishka.integrations.fastapi import inject, FromDishka
 from sqlalchemy import select
 
+from otvetoved_core.domain.models import UserSession, User
 from otvetoved_core.infrastructure.database import DatabaseSession
 from otvetoved_core.infrastructure.dto import BaseDTO, BaseRootDTO
 
@@ -62,6 +63,13 @@ TagDescription = Annotated[str, Field(
     "Description of this tag.",
 )]
 
+SessionToken = Annotated[UUID4, Field(
+    title=
+    "Session token.",
+    description=
+    "Generated token only for this session, which you use for another requests.",
+)]
+
 
 class QuestionTag(BaseDTO):
     id: TagID
@@ -82,6 +90,7 @@ class CreateQuestionDTO(BaseDTO):
 
     brief: QuestionBrief
     text: QuestionText
+    session_token: SessionToken
 
 
 class QuestionFullInfoDTO(BaseDTO):
@@ -102,9 +111,16 @@ async def create_question(
         payload: CreateQuestionDTO,
         session: FromDishka[DatabaseSession],
 ):
+    stmt = select(UserSession).where(UserSession.session_token == payload.session_token)
+    user_sessions = await session.scalars(stmt)
+    user_session: UserSession = user_sessions.one_or_none()
+    if not user_session:
+        raise HTTPException(404, f"Session with token {payload.session_token} not found")
+
     question = Question(
         brief=payload.brief,
         text=payload.text,
+        created_by_user_id=user_session.user_id,
     )
     session.add(question)
     await session.flush()
