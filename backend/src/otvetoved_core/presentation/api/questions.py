@@ -5,7 +5,7 @@ from pydantic import Field, UUID4
 from dishka.integrations.fastapi import inject, FromDishka
 from sqlalchemy import select
 
-from otvetoved_core.domain.models import UserSession, User
+from otvetoved_core.domain.models import UserSession
 from otvetoved_core.infrastructure.database import DatabaseSession
 from otvetoved_core.infrastructure.dto import BaseDTO, BaseRootDTO
 
