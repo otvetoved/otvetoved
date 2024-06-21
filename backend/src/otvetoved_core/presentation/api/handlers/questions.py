@@ -1,105 +1,16 @@
-from typing import Annotated
 
 from fastapi import APIRouter, HTTPException
-from pydantic import Field, UUID4
 from dishka.integrations.fastapi import inject, FromDishka
 from sqlalchemy import select
 
 from otvetoved_core.domain.models import UserSession
 from otvetoved_core.infrastructure.database import DatabaseSession
-from otvetoved_core.infrastructure.dto import BaseDTO, BaseRootDTO
+from otvetoved_core.infrastructure.dto import BaseRootDTO
 
 from otvetoved_core.domain.models.question import Question
+from otvetoved_core.presentation.api.schemas.schemas import QuestionDTO, CreateQuestionDTO, QuestionFullInfoDTO
 
 router = APIRouter(prefix="/questions")
-
-QuestionBrief = Annotated[str, Field(
-    title=
-    "Question brief.",
-    description=
-    "Summary of the question to be displayed as question header.",
-)]
-
-QuestionText = Annotated[str, Field(
-    title=
-    "Question text.",
-    description=
-    "Text of the question.  Can be omitted, if question brief "
-    "contains enough information about the question."
-)]
-
-QuestionId = Annotated[int, Field(
-    title=
-    "Question id.",
-    description=
-    "Question identifier.",
-)]
-
-QuestionUserID = Annotated[int, Field(
-    title=
-    "User id.",
-    description=
-    "Id of user which created this question.",
-)]
-
-TagID = Annotated[int, Field(
-    title=
-    "Tag id",
-    description=
-    "Tag id.",
-)]
-
-TagName = Annotated[str, Field(
-    title=
-    "Tag name.",
-    description=
-    "Name of this tag.",
-)]
-
-TagDescription = Annotated[str, Field(
-    title=
-    "Tag description.",
-    description=
-    "Description of this tag.",
-)]
-
-SessionToken = Annotated[UUID4, Field(
-    title=
-    "Session token.",
-    description=
-    "Generated token only for this session, which you use for another requests.",
-)]
-
-
-class QuestionTag(BaseDTO):
-    id: TagID
-    name: TagName
-    description: TagDescription
-
-
-class QuestionDTO(BaseDTO):
-    """ A question """
-
-    id: QuestionId
-    brief: QuestionBrief
-    text: QuestionText
-
-
-class CreateQuestionDTO(BaseDTO):
-    """ Create question request """
-
-    brief: QuestionBrief
-    text: QuestionText
-    session_token: SessionToken
-
-
-class QuestionFullInfoDTO(BaseDTO):
-    """ A question with full info"""
-    id: QuestionId
-    brief: QuestionBrief
-    text: QuestionText
-    created_by_user_id: QuestionUserID
-    tags: list[QuestionTag]
 
 
 @router.post(
@@ -146,7 +57,7 @@ async def get_questions_list(
 
 
 @router.get(
-    "{question_id}",
+    "/{question_id}",
     response_model=QuestionFullInfoDTO,
 )
 @inject

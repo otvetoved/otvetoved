@@ -1,10 +1,6 @@
 from fastapi import APIRouter
 
-from . import (
-    questions,
-    authentication,
-)
-
+from .handlers import questions, authentication
 
 router = APIRouter(prefix="/v1")
 
