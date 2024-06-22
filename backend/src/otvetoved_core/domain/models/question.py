@@ -3,14 +3,13 @@ from __future__ import annotations
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from otvetoved_core.domain.models.user import User
-from otvetoved_core.infrastructure.relational_entity import (
-    BaseRelationalEntity,
-)
-
 from otvetoved_core.domain.models.tag import (
     Tag,
     QuestionTag,
+)
+from otvetoved_core.domain.models.user import User
+from otvetoved_core.infrastructure.relational_entity import (
+    BaseRelationalEntity,
 )
 
 
@@ -24,6 +23,7 @@ class Question(BaseRelationalEntity):
 
     tags: Mapped[list[Tag]] = relationship(secondary=QuestionTag.__table__, lazy='selectin')
     created_by_user: Mapped[User] = relationship(lazy='selectin')
+    answers: Mapped[list[QuestionAnswer]] = relationship(lazy='selectin')
 
 
 class QuestionAnswer(BaseRelationalEntity):
