@@ -5,94 +5,80 @@ from otvetoved_core.infrastructure.dto import BaseDTO
 
 Username = Annotated[str, Field(
     title=
-    "User username.",
+    "Юзернейм пользователя.",
     description=
-    "User username.",
+    "Имя в приложении, по которому можно идентифицировать пользователя. "
+    "Может использоваться вместо id, если на то есть объективные причины.",
 )]
 
 Password = Annotated[str, Field(
     title=
-    "User password.",
-    description=
-    "User password.",
+    "Пароль.",
 )]
 
 UserID = Annotated[str, Field(
     title=
-    "User id.",
-    description=
-    "Uniq user id.",
+    "Идентификатор пользователя.",
 )]
 
 FirstName = Annotated[str, Field(
     title=
-    "First name",
-    description=
-    "User's first name.",
+    "Имя.",
 )]
 
 LastName = Annotated[str, Field(
     title=
-    "Last name.",
-    description=
-    "User's last name.",
+    "Фамилия.",
 )]
 
 QuestionBrief = Annotated[str, Field(
     title=
-    "Question brief.",
+    "Краткое содержание вопроса.",
     description=
-    "Summary of the question to be displayed as question header.",
+    "Краткое содержание вопроса, которое будет отображаться как "
+    "заголовок этого вопроса.",
 )]
 
-QuestionText = Annotated[str, Field(
+QuestionText = Annotated[str | None, Field(
     title=
-    "Question text.",
+    "Текст вопроса",
     description=
-    "Text of the question.  Can be omitted, if question brief "
-    "contains enough information about the question."
+    "Текст вопроса.  Может быть опущен, если краткое содержание вопроса"
+    " содержит достаточно информации о вопросе."
 )]
 
 QuestionId = Annotated[int, Field(
     title=
-    "Question id.",
-    description=
-    "Question identifier.",
+    "Идентификатор вопроса.",
 )]
 
 QuestionUserID = Annotated[int, Field(
     title=
-    "User id.",
-    description=
-    "Id of user which created this question.",
+    "Идентификатор создателя вопроса.",
 )]
 
 TagID = Annotated[int, Field(
     title=
-    "Tag id",
-    description=
-    "Tag id.",
+    "Идентификатор тега",
 )]
 
 TagName = Annotated[str, Field(
     title=
-    "Tag name.",
-    description=
-    "Name of this tag.",
+    "Название тега.",
 )]
 
 TagDescription = Annotated[str, Field(
     title=
-    "Tag description.",
-    description=
-    "Description of this tag.",
+    "Описание тега.",
 )]
 
 SessionToken = Annotated[UUID4, Field(
     title=
-    "Session token.",
+    "Токен сессии.",
     description=
-    "Generated token only for this session, which you use for another requests.",
+    "Токен, сгенерированный для сессии входа.  Передается в другие"
+    " запросы для подтверждения того, что их выполняет владелец этой"
+    " сессии.",
 )]
 
 
@@ -103,7 +89,7 @@ class QuestionTag(BaseDTO):
 
 
 class QuestionDTO(BaseDTO):
-    """ A question """
+    """ Вопрос """
 
     id: QuestionId
     brief: QuestionBrief
@@ -111,7 +97,7 @@ class QuestionDTO(BaseDTO):
 
 
 class CreateQuestionDTO(BaseDTO):
-    """ Create question request """
+    """ Запрос на создание пользователя """
 
     brief: QuestionBrief
     text: QuestionText
@@ -119,7 +105,8 @@ class CreateQuestionDTO(BaseDTO):
 
 
 class QuestionFullInfoDTO(BaseDTO):
-    """ A question with full info"""
+    """ Полная информация о вопросе """
+
     id: QuestionId
     brief: QuestionBrief
     text: QuestionText
@@ -128,18 +115,21 @@ class QuestionFullInfoDTO(BaseDTO):
 
 
 class AuthResponseDTO(BaseDTO):
-    """An authentication response"""
+    """ Ответ на запрос аутентификации """
+
     session_token: SessionToken
 
 
 class AuthDTO(BaseDTO):
-    """An authentication"""
+    """ Запрос аутентификации """
+
     username: Username
     password: Password
 
 
 class UserRegisterResponse(BaseDTO):
-    """User info. Returns after registration"""
+    """ Информация о текущем пользователе """
+
     username: Username
     id: UserID
 
@@ -147,7 +137,8 @@ class UserRegisterResponse(BaseDTO):
 
 
 class UserRegisterForm(BaseDTO):
-    """User info, which uses for registration"""
+    """ Полезная нагрузка запроса регистрации """
+
     username: Username
     password: Password
     first_name: FirstName

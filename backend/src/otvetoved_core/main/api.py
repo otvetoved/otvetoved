@@ -8,8 +8,26 @@ from otvetoved_core.infrastructure.database import DatabaseProvider
 from otvetoved_core.presentation import api
 
 
+tags_metadata = [
+    {
+        "name": "auth",
+        "description": (
+            "Регистрация, аутентификация, авторизация. Работа с текущим"
+            " пользователем."
+        ),
+    },
+    {
+        "name": "questions",
+        "description": (
+            "Работа с вопросами"
+        ),
+    }
+]
+
+
 app = FastAPI(
     root_path="/api",
+    title="Ответовед REST API",
 )
 
 app.include_router(api.router)
