@@ -9,8 +9,9 @@ const RegistrationModal = ({ onClose, onLoginClick }) => {
   const [showAuthentication, setShowAuthentication] = useState(false); 
 
   const handleRegister = () => {
-    fetch(`${process.env.VITE_BACKEND_URL}/v1/authentication/register`, {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/v1/authentication/register`, {
       method: 'POST',
+      mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -21,19 +22,19 @@ const RegistrationModal = ({ onClose, onLoginClick }) => {
       }),
     })
     .then(response => {
-        if (response.ok) {
-          // Successful registration
-          alert(`Вы успешно зарегистрировались, ${response.username}`);
-        } else {
-          // Server returned an error
-          alert('Вы провалили регистрацию');
-        }
-      })
-      .catch(error => {
-        // Request error
-        console.error('Error occurred while registration in: ', error);
-        alert('Возникла ошибка!')
-      });
+      if (response.ok) {
+        return response.json(); 
+      } else {
+        throw new Error('Failed to register'); 
+      }
+    })
+    .then(data => {
+      alert(`Вы успешно зарегистрировались:, ${data.username}`);
+    })
+    .catch(error => {
+      console.error('Error occurred while registering: ', error);
+      alert('Вы провалили регистрацию');
+    });
   };
   
 

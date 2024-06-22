@@ -8,8 +8,9 @@ const AuthenticationModal = ({ onClose, onRegisterClick }) => {
   const [showRegistration, setShowRegistration] = useState(false); 
 
   const handleLogin = () => {
-    fetch(`${process.env.VITE_BACKEND_URL}/v1/authentication`, {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/v1/authentication`, {
       method: 'POST',
+      mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -20,17 +21,18 @@ const AuthenticationModal = ({ onClose, onRegisterClick }) => {
     })
     .then(response => {
       if (response.ok) {
-        // Successful login
-        alert('Вы успешно авторизовались')
+        return response.json();
       } else {
-        // Server returned an error
-        alert('Вы провалили авторизацию');
+        throw new Error('Failed to log in');
       }
     })
+    .then(data => {
+      alert('Вы успешно вошли!');
+      console.log(data.session_token);
+    })
     .catch(error => {
-      // Request error
       console.error('Error occurred while logging in: ', error);
-      alert('Возникла ошибка!')
+      alert('Вы провалили вход');
     });
   };
   
