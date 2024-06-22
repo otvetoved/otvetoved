@@ -1,7 +1,7 @@
-from fastapi import APIRouter, HTTPException
-from dishka.integrations.fastapi import inject, FromDishka
-from sqlalchemy import select, ScalarResult
 import bcrypt
+from dishka.integrations.fastapi import inject, FromDishka
+from fastapi import APIRouter, HTTPException
+from sqlalchemy import select, ScalarResult
 
 from otvetoved_core.infrastructure.database import DatabaseSession
 
