@@ -11,6 +11,7 @@ from otvetoved_core.presentation.api.schemas.schemas import (
     QuestionDTO,
     CreateQuestionDTO,
     QuestionFullInfoDTO,
+    QuestionId,
 )
 
 

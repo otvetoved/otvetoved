@@ -81,6 +81,18 @@ SessionToken = Annotated[UUID4, Field(
     " сессии.",
 )]
 
+AnswerID = Annotated[str, Field(
+    title=
+    "Интедификатор ответа",
+)]
+
+AnswerText = Annotated[str, Field(
+    title=
+    "Текст ответа",
+    description=
+    "Текст, который содержит в себе ответ на вопрос",
+)]
+
 
 class QuestionTag(BaseDTO):
     id: TagID
@@ -143,3 +155,19 @@ class UserRegisterForm(BaseDTO):
     password: Password
     first_name: FirstName
     last_name: LastName
+
+
+class QuestionAnswerResponse(BaseDTO):
+    """ Данные созданного вопроса """
+
+    id: AnswerID
+    question_id: QuestionId
+    text: AnswerText
+
+
+class QuestionAnswer(BaseDTO):
+    """ Данные для создания ответа на вопрос """
+
+    text: AnswerText
+    question_id: QuestionId
+    session_token: SessionToken
