@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import AuthenticationModal from './components/AuthenticationModal.jsx';
 import RegistrationModal from './components/RegistrationModal.jsx';
 
+//Test.jsx используется для теста всплывающих окон, которые должны всплывать при нажатии фото профиля
+
 const Test = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
