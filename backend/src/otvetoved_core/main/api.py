@@ -11,6 +11,7 @@ from otvetoved_core.presentation.api.schemas.tags_metadata import tags_metadata
 app = FastAPI(
     root_path="/api",
     openapi_tags=tags_metadata,
+    title="Ответовед REST API",
 )
 
 app.include_router(api.router)

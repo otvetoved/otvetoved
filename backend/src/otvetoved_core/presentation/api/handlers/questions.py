@@ -1,20 +1,26 @@
-from dishka.integrations.fastapi import inject, FromDishka
 from fastapi import APIRouter, HTTPException
+from dishka.integrations.fastapi import inject, FromDishka
 from sqlalchemy import select
 
 from otvetoved_core.domain.models import UserSession
-from otvetoved_core.domain.models.question import Question
 from otvetoved_core.infrastructure.database import DatabaseSession
 from otvetoved_core.infrastructure.dto import BaseRootDTO
-from ..schemas.schemas import QuestionDTO, CreateQuestionDTO, QuestionFullInfoDTO
 
-router = APIRouter(prefix="/questions")
+from otvetoved_core.domain.models.question import Question
+from otvetoved_core.presentation.api.schemas.schemas import (
+    QuestionDTO,
+    CreateQuestionDTO,
+    QuestionFullInfoDTO,
+)
+
+
+router = APIRouter(prefix="/questions", tags=["questions"])
 
 
 @router.post(
     "",
     response_model=QuestionDTO,
-    tags=["questions"],
+    name="Создать новый вопрос",
 )
 @inject
 async def create_question(
@@ -45,7 +51,7 @@ QuestionListDTO = BaseRootDTO[list[QuestionDTO]]
 @router.get(
     "",
     response_model=QuestionListDTO,
-    tags=["questions"],
+    name="Получить список вопросов",
 )
 @inject
 async def get_questions_list(
@@ -59,7 +65,7 @@ async def get_questions_list(
 @router.get(
     "/{question_id}",
     response_model=QuestionFullInfoDTO,
-    tags=["questions"],
+    name="Получить конкретный вопрос по id"
 )
 @inject
 async def get_question(
