@@ -28,6 +28,7 @@ tags_metadata = [
 app = FastAPI(
     root_path="/api",
     title="Ответовед REST API",
+    openapi_tags=tags_metadata,
 )
 
 app.include_router(api.router)
