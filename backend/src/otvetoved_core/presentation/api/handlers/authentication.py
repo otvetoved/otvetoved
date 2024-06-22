@@ -1,18 +1,15 @@
-
-from fastapi import APIRouter, HTTPException
-from dishka.integrations.fastapi import inject, FromDishka
-from sqlalchemy import select, ScalarResult
 import bcrypt
-
-from otvetoved_core.infrastructure.database import DatabaseSession
+from dishka.integrations.fastapi import inject, FromDishka
+from fastapi import APIRouter, HTTPException
+from sqlalchemy import select, ScalarResult
 
 from otvetoved_core.domain.models.user import User
 from otvetoved_core.domain.models.user_session import UserSession
-from otvetoved_core.presentation.api.schemas.schemas import AuthResponseDTO, AuthDTO, UserRegisterResponse, UserRegisterForm
+from otvetoved_core.infrastructure.database import DatabaseSession
+from ..schemas.schemas import AuthResponseDTO, AuthDTO, UserRegisterResponse, \
+    UserRegisterForm
 
 router = APIRouter(prefix="/authentication")
-
-
 
 
 # TODO: сделать так, чтобы было всего 5 сессий на пользователя и у них было время жизни
@@ -20,6 +17,7 @@ router = APIRouter(prefix="/authentication")
 @router.post(
     "",
     response_model=AuthResponseDTO,
+    tags=["authentication"],
 )
 @inject
 async def create_new_session(
@@ -48,6 +46,7 @@ async def create_new_session(
 @router.post(
     "/register",
     response_model=UserRegisterResponse,
+    tags=["authentication"],
 )
 @inject
 async def create_new_account(

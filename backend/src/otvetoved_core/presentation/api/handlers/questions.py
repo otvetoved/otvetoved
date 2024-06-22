@@ -1,14 +1,12 @@
-
-from fastapi import APIRouter, HTTPException
 from dishka.integrations.fastapi import inject, FromDishka
+from fastapi import APIRouter, HTTPException
 from sqlalchemy import select
 
 from otvetoved_core.domain.models import UserSession
+from otvetoved_core.domain.models.question import Question
 from otvetoved_core.infrastructure.database import DatabaseSession
 from otvetoved_core.infrastructure.dto import BaseRootDTO
-
-from otvetoved_core.domain.models.question import Question
-from otvetoved_core.presentation.api.schemas.schemas import QuestionDTO, CreateQuestionDTO, QuestionFullInfoDTO
+from ..schemas.schemas import QuestionDTO, CreateQuestionDTO, QuestionFullInfoDTO
 
 router = APIRouter(prefix="/questions")
 
@@ -16,6 +14,7 @@ router = APIRouter(prefix="/questions")
 @router.post(
     "",
     response_model=QuestionDTO,
+    tags=["questions"],
 )
 @inject
 async def create_question(
@@ -46,6 +45,7 @@ QuestionListDTO = BaseRootDTO[list[QuestionDTO]]
 @router.get(
     "",
     response_model=QuestionListDTO,
+    tags=["questions"],
 )
 @inject
 async def get_questions_list(
@@ -59,6 +59,7 @@ async def get_questions_list(
 @router.get(
     "/{question_id}",
     response_model=QuestionFullInfoDTO,
+    tags=["questions"],
 )
 @inject
 async def get_question(
