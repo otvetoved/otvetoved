@@ -8,7 +8,7 @@ tags_metadata = [
         "description": "Операции с ответами /api/v1/answers",
     },
     {
-        "name": "authentication",
+        "name": "auth",
         "description": "Регистрация и аутентификация /api/v1/authentication",
     },
 ]
