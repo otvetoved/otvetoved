@@ -31,8 +31,10 @@ const AuthenticationModal = ({ onClose, onRegisterClick }) => {
       console.log(data.session_token);
     })
     .catch(error => {
+      console.log(import.meta.env.VITE_BACKEND_URL);
       console.error('Error occurred while logging in: ', error);
-      alert('Вы провалили вход');
+      alert('Произошла ошибка входа: ' + error.message);
+
     });
   };
   
