@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import AuthenticationModal from './AuthenticationModal.jsx'; 
-import './RegistrationModal.css'
+import './Modal.css'
 
 const RegistrationModal = ({ onClose, onLoginClick }) => {
   const [username, setUsername] = useState('');
@@ -46,14 +46,14 @@ const RegistrationModal = ({ onClose, onLoginClick }) => {
     <div className="modal">
       <div className="modal-content">
         <span className="close" onClick={onClose}>&times;</span>
-        <h2>Регистрация</h2>
+        <h2 className="modal-head">Регистрация</h2>
         <form>
-          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Имя пользователя" />
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Почта" />
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Пароль" />
-          <button onClick={handleRegister}>Зарегистрироваться</button>
+          <input type="text" className="modal-input" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Имя пользователя" />
+          <input type="email" className="modal-input"  value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Почта" />
+          <input type="password" className="modal-input"  value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Пароль" />
+          <button className="modal-button"  onClick={handleRegister}>Зарегистрироваться</button>
         </form>
-        <p>Уже есть аккаунт? <span onClick={onLoginClick}>Войдите</span></p>
+        <p className="modal-p" >Уже есть аккаунт? <span className="modal-span" onClick={onLoginClick}>Войдите</span></p>
         {showAuthentication && <AuthenticationModal onClose={() => setShowAuthentication(false)} onRegisterClick={() => setShowAuthentication(false)} />}
       </div>
     </div>
