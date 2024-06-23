@@ -18,22 +18,26 @@ const RegistrationModal = ({ onClose, onLoginClick }) => {
       body: JSON.stringify({
         username,
         email,
-        password
+        password,
       }),
     })
     .then(response => {
       if (response.ok) {
-        return response.json(); 
+        return response.json();
       } else {
-        throw new Error('Failed to register'); 
+        return response.json().then(error => Promise.reject(error));
       }
     })
     .then(data => {
-      alert(`Вы успешно зарегистрировались:, ${data.username}`);
+      alert(`Вы успешно зарегистрировались: ${data.username}`);
     })
     .catch(error => {
       console.error('Error occurred while registering: ', error);
-      alert('Вы провалили регистрацию');
+      if (error.detail) {
+        alert('Ошибка регистрации: ' + error.detail);
+      } else {
+        alert('Произошла ошибка регистрации. Пожалуйста, попробуйте позже.');
+      }
     });
   };
   
