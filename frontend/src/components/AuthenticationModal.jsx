@@ -8,6 +8,7 @@ const AuthenticationModal = ({ onClose, onRegisterClick }) => {
   const [showRegistration, setShowRegistration] = useState(false); 
 
   const handleLogin = () => {
+    console.log('Отправляются данные:', { username, password });
     fetch(`${import.meta.env.VITE_BACKEND_URL}/v1/authentication`, {
       method: 'POST',
       mode: 'cors',
@@ -23,7 +24,7 @@ const AuthenticationModal = ({ onClose, onRegisterClick }) => {
       if (response.ok) {
         return response.json();
       } else {
-        throw new Error('Failed to log in');
+        return response.json().then(error => Promise.reject(error));
       }
     })
     .then(data => {
@@ -33,12 +34,15 @@ const AuthenticationModal = ({ onClose, onRegisterClick }) => {
     .catch(error => {
       console.log(import.meta.env.VITE_BACKEND_URL);
       console.error('Error occurred while logging in: ', error);
-      alert('Произошла ошибка входа: ' + error.message);
-
+      if (error.detail) {
+        alert('Произошла ошибка входа: ' + error.detail);
+      } else {
+        alert('Произошла ошибка входа. Пожалуйста, попробуйте позже.');
+      }
     });
   };
   
-
+  
   return (
     <div className="modal">
       <div className="modal-content">
