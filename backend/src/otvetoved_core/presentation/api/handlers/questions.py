@@ -1,19 +1,18 @@
-from fastapi import APIRouter, HTTPException
+from datetime import datetime
+
 from dishka.integrations.fastapi import inject, FromDishka
+from fastapi import APIRouter, HTTPException
 from sqlalchemy import select
 
 from otvetoved_core.domain.models import UserSession
+from otvetoved_core.domain.models.question import Question
 from otvetoved_core.infrastructure.database import DatabaseSession
 from otvetoved_core.infrastructure.dto import BaseRootDTO
-
-from otvetoved_core.domain.models.question import Question
 from otvetoved_core.presentation.api.schemas.schemas import (
     QuestionDTO,
     CreateQuestionDTO,
     QuestionFullInfoDTO,
-    QuestionId,
 )
-
 
 router = APIRouter(prefix="/questions", tags=["questions"])
 
@@ -38,6 +37,7 @@ async def create_question(
         brief=payload.brief,
         text=payload.text,
         created_by_user_id=user_session.user_id,
+        create_time=int(datetime.now().timestamp()),
     )
     session.add(question)
     await session.flush()

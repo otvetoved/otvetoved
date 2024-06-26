@@ -1,6 +1,7 @@
 from typing import Annotated
 
 from pydantic import Field, ConfigDict, UUID4
+
 from otvetoved_core.infrastructure.dto import BaseDTO
 
 Username = Annotated[str, Field(
@@ -16,7 +17,7 @@ Password = Annotated[str, Field(
     "Пароль.",
 )]
 
-UserID = Annotated[str, Field(
+UserID = Annotated[int, Field(
     title=
     "Идентификатор пользователя.",
 )]
@@ -81,7 +82,7 @@ SessionToken = Annotated[UUID4, Field(
     " сессии.",
 )]
 
-AnswerID = Annotated[str, Field(
+AnswerID = Annotated[int, Field(
     title=
     "Интедификатор ответа",
 )]
@@ -91,6 +92,10 @@ AnswerText = Annotated[str, Field(
     "Текст ответа",
     description=
     "Текст, который содержит в себе ответ на вопрос",
+)]
+
+CreateTime = Annotated[int, Field(
+    title="Дата создания объекта."
 )]
 
 
@@ -106,6 +111,7 @@ class QuestionDTO(BaseDTO):
     id: QuestionId
     brief: QuestionBrief
     text: QuestionText
+    create_time: CreateTime
 
 
 class CreateQuestionDTO(BaseDTO):
@@ -123,6 +129,7 @@ class QuestionFullInfoDTO(BaseDTO):
     brief: QuestionBrief
     text: QuestionText
     created_by_user_id: QuestionUserID
+    create_time: CreateTime
     tags: list[QuestionTag]
 
 
@@ -163,11 +170,12 @@ class QuestionAnswerResponse(BaseDTO):
     id: AnswerID
     question_id: QuestionId
     text: AnswerText
+    created_by_user_id: UserID
+    create_time: CreateTime
 
 
-class QuestionAnswer(BaseDTO):
+class QuestionAnswerDTO(BaseDTO):
     """ Данные для создания ответа на вопрос """
 
     text: AnswerText
-    question_id: QuestionId
     session_token: SessionToken
