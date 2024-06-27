@@ -62,10 +62,19 @@ useEffect(() => {
 
   const handleLike = async (id, type, action) => {
     try {
-      const response = await fetch(`/v1/${type}/${id}/${action}`, {
+      let url;
+  
+      if (type === 'questions') {
+        url = `/v1/questions/${id}/${action}`;
+      } else if (type === 'answers') {
+        const questionId = questionData.id;
+        url = `/v1/questions/${questionId}/answers/${id}/${action}`;
+      }
+  
+      const response = await fetch(url, {
         method: 'PUT',
       });
-
+  
       if (response.ok) {
         const updatedData = await response.json();
         if (type === 'questions') {
@@ -86,7 +95,7 @@ useEffect(() => {
       console.error(`Failed to update ${type} ${id}: ${error}`);
     }
   };
-
+  
   return (
     <div className="question-page">
       {question && (
