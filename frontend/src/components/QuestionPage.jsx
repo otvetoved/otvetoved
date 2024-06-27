@@ -67,7 +67,7 @@ useEffect(() => {
       if (type === 'questions') {
         url = `/v1/questions/${id}/${action}`;
       } else if (type === 'answers') {
-        const questionId = questionData.id;
+        const questionId = question.id;
         url = `/v1/questions/${questionId}/answers/${id}/${action}`;
       }
   
