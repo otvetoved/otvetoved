@@ -19,7 +19,23 @@ const QuestionPage = () => {
             <button className="like-btn">👍 Лайк</button>
             <button className="dislike-btn">👎 Дизлайк</button>
           </div>
-      </div>ы
+      </div>
+      <div className="answers">
+      <div className="date-question">Дата</div>
+        <div className="author-info">
+            <div className="profile">
+            <img className="user-question" src={user} alt="Аватарка" />
+            <div className="author-name">Автор ответа</div>
+            </div>
+            <div className="question-info">
+            <div className="question-text">Текст вопроса</div>
+            </div>
+          <div className="answer-actions">
+            <button className="like-btn">👍 Лайк</button>
+            <button className="dislike-btn">👎 Дизлайк</button>
+          </div>
+      </div>
+      </div>
       <div className="answer-form">
       <div className="author-info">
             <div className="profile">

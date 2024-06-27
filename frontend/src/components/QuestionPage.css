@@ -109,4 +109,9 @@
     bottom: 0;
     width: 70vw;
     padding: 20px;
+    margin-left: -20px;
+}
+
+.answers{
+    margin-top: 90px;
 }
