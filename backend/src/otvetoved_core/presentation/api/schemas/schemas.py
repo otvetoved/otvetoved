@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Annotated
 
 from pydantic import Field, ConfigDict, UUID4
@@ -94,8 +95,13 @@ AnswerText = Annotated[str, Field(
     "Текст, который содержит в себе ответ на вопрос",
 )]
 
-CreateTime = Annotated[int, Field(
-    title="Дата создания объекта."
+CreatedAt = Annotated[datetime, Field(
+    title=
+    "Дата создания объекта.",
+    examples=
+    [
+        1719611503,
+    ]
 )]
 
 
@@ -111,7 +117,7 @@ class QuestionDTO(BaseDTO):
     id: QuestionId
     brief: QuestionBrief
     text: QuestionText
-    create_time: CreateTime
+    created_at: CreatedAt
 
 
 class CreateQuestionDTO(BaseDTO):
@@ -129,7 +135,7 @@ class QuestionFullInfoDTO(BaseDTO):
     brief: QuestionBrief
     text: QuestionText
     created_by_user_id: QuestionUserID
-    create_time: CreateTime
+    created_at: CreatedAt
     tags: list[QuestionTag]
 
 
@@ -171,10 +177,10 @@ class QuestionAnswerResponse(BaseDTO):
     question_id: QuestionId
     text: AnswerText
     created_by_user_id: UserID
-    create_time: CreateTime
+    created_at: CreatedAt
 
 
-class QuestionAnswerDTO(BaseDTO):
+class CreateQuestionAnswerDTO(BaseDTO):
     """ Данные для создания ответа на вопрос """
 
     text: AnswerText

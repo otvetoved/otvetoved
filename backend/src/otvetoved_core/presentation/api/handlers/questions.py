@@ -37,7 +37,6 @@ async def create_question(
         brief=payload.brief,
         text=payload.text,
         created_by_user_id=user_session.user_id,
-        create_time=int(datetime.now().timestamp()),
     )
     session.add(question)
     await session.flush()

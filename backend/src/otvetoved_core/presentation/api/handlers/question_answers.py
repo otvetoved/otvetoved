@@ -8,7 +8,7 @@ from otvetoved_core.domain.models.question import QuestionAnswer
 from otvetoved_core.domain.models.user_session import UserSession
 from otvetoved_core.infrastructure.database import DatabaseSession
 from otvetoved_core.infrastructure.dto import BaseRootDTO
-from otvetoved_core.presentation.api.schemas.schemas import QuestionAnswerDTO, QuestionAnswerResponse
+from otvetoved_core.presentation.api.schemas.schemas import CreateQuestionAnswerDTO, QuestionAnswerResponse
 
 router = APIRouter(prefix="/questions/{question_id}/answers", tags=["answers"])
 
@@ -20,7 +20,7 @@ router = APIRouter(prefix="/questions/{question_id}/answers", tags=["answers"])
 @inject
 async def leave_answer(
         question_id: int,
-        payload: QuestionAnswerDTO,
+        payload: CreateQuestionAnswerDTO,
         session: FromDishka[DatabaseSession],
 ):
     """"""

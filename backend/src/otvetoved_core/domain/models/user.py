@@ -16,3 +16,4 @@ class User(BaseRelationalEntity):
     last_name: Mapped[str | None]
     username: Mapped[str] = mapped_column(unique=True)
     password: Mapped[str]
+    created_at: Mapped[datetime] = mapped_column(default=datetime.now)
