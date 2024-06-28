@@ -96,7 +96,7 @@ AnswerText = Annotated[str, Field(
 )]
 
 Timestamp = Annotated[datetime, PlainSerializer(
-    datetime.timestamp,
+    lambda x: x.timestamp(),
     return_type=int,
     when_used="json",
 )]
