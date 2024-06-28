@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Annotated
 
-from pydantic import Field, ConfigDict, UUID4
+from pydantic import Field, ConfigDict, UUID4, PlainSerializer
 
 from otvetoved_core.infrastructure.dto import BaseDTO
 
@@ -95,13 +95,17 @@ AnswerText = Annotated[str, Field(
     "Текст, который содержит в себе ответ на вопрос",
 )]
 
-CreatedAt = Annotated[datetime, Field(
-    title=
-    "Дата создания объекта.",
-    examples=
-    [
+Timestamp = Annotated[datetime, PlainSerializer(
+    datetime.timestamp,
+    return_type=int,
+    when_used="json",
+)]
+
+CreatedAt = Annotated[Timestamp, Field(
+    title="Дата создания объекта.",
+    examples=[
         1719611503,
-    ]
+    ],
 )]
 
 
