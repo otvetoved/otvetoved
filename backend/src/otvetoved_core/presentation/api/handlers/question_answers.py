@@ -34,7 +34,6 @@ async def leave_answer(
         question_id=question_id,
         created_by_user_id=user_session.user_id,
         text=payload.text,
-        create_time=int(datetime.now().timestamp()),
     )
     session.add(answer)
     await session.flush()
