@@ -1,18 +1,16 @@
-from fastapi import APIRouter, HTTPException
 from dishka.integrations.fastapi import inject, FromDishka
+from fastapi import APIRouter, HTTPException
 from sqlalchemy import select
 
 from otvetoved_core.domain.models import UserSession
+from otvetoved_core.domain.models.question import Question
 from otvetoved_core.infrastructure.database import DatabaseSession
 from otvetoved_core.infrastructure.dto import BaseRootDTO
-
-from otvetoved_core.domain.models.question import Question
 from otvetoved_core.presentation.api.schemas.schemas import (
     QuestionDTO,
     CreateQuestionDTO,
     QuestionFullInfoDTO,
 )
-
 
 router = APIRouter(prefix="/questions", tags=["questions"])
 

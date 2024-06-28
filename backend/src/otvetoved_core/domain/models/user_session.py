@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import uuid
+from datetime import datetime
 
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -18,5 +19,6 @@ class UserSession(BaseRelationalEntity):
     session_token: Mapped[UUID] = mapped_column(UUID(as_uuid=True), default=uuid.uuid4)
     session_id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     user_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
+    created_at: Mapped[datetime] = mapped_column(default=datetime.now)
 
     user: Mapped[User] = relationship(lazy='selectin')

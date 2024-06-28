@@ -9,6 +9,6 @@ tags_metadata = [
     },
     {
         "name": "answers",
-        "description": "Операции с ответами /api/v1/answers",
+        "description": "Операции с ответами /api/v1/questions/{question_id}/answers",
     },
 ]
