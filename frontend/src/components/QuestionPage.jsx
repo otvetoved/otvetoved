@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './QuestionPage.css';
 import user from './../assets/default-user.png';
-import questionData from './../../public/fakeApi/questionData.json';
-import answersData from './../../public/fakeApi/answersData.json';
 
 
 const QuestionPage = () => {
@@ -10,29 +8,25 @@ const QuestionPage = () => {
   const [answers, setAnswers] = useState([]);
   const [newAnswer, setNewAnswer] = useState('');
 
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       try {
-//         const questionResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/v1/questions/1`); // Нужно заменить {question_id} на конкретный ID, который мы будем откуда-то получать
-//         const questionData = await questionResponse.json();
-//         setQuestion(questionData);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const questionResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/v1/questions/1`); // Нужно заменить {question_id} на конкретный ID, который мы будем откуда-то получать
+        const questionData = await questionResponse.json();
+        setQuestion(questionData);
 
-//         const answersResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/v1/questions/1/answers`); //  Нужно заменить {question_id} на конкретный ID, который мы будем откуда-то получать
-//         const answersData = await answersResponse.json();
-//         setAnswers(answersData);
-//       } catch (error) {
-//         console.error('Failed to fetch question and answers:', error);
-//       }
-//     };
+        const answersResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/v1/questions/1/answers`); //  Нужно заменить {question_id} на конкретный ID, который мы будем откуда-то получать
+        const answersData = await answersResponse.json();
+        setAnswers(answersData);
+      } catch (error) {
+        console.error('Failed to fetch question and answers:', error);
+      }
+    };
 
-//     fetchData();
-//   }, []);
-
-useEffect(() => {
-    // Использование данных из JSON файлов вместо fetch запросов
-    setQuestion(questionData);
-    setAnswers(answersData);
+    fetchData();
   }, []);
+
+
 
   const handleAnswerSubmit = async (e) => {
     e.preventDefault();
