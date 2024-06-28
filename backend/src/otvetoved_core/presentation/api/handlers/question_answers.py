@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from dishka.integrations.fastapi import inject, FromDishka
 from fastapi import APIRouter, HTTPException
 from sqlalchemy import select
