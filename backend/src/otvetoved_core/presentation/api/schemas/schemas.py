@@ -1,6 +1,8 @@
+from datetime import datetime
 from typing import Annotated
 
 from pydantic import Field, ConfigDict, UUID4
+
 from otvetoved_core.infrastructure.dto import BaseDTO
 
 Username = Annotated[str, Field(
@@ -16,7 +18,7 @@ Password = Annotated[str, Field(
     "Пароль.",
 )]
 
-UserID = Annotated[str, Field(
+UserID = Annotated[int, Field(
     title=
     "Идентификатор пользователя.",
 )]
@@ -81,6 +83,27 @@ SessionToken = Annotated[UUID4, Field(
     " сессии.",
 )]
 
+AnswerID = Annotated[int, Field(
+    title=
+    "Интедификатор ответа",
+)]
+
+AnswerText = Annotated[str, Field(
+    title=
+    "Текст ответа",
+    description=
+    "Текст, который содержит в себе ответ на вопрос",
+)]
+
+CreatedAt = Annotated[datetime, Field(
+    title=
+    "Дата создания объекта.",
+    examples=
+    [
+        1719611503,
+    ]
+)]
+
 
 class QuestionTag(BaseDTO):
     id: TagID
@@ -94,6 +117,7 @@ class QuestionDTO(BaseDTO):
     id: QuestionId
     brief: QuestionBrief
     text: QuestionText
+    created_at: CreatedAt
 
 
 class CreateQuestionDTO(BaseDTO):
@@ -111,6 +135,7 @@ class QuestionFullInfoDTO(BaseDTO):
     brief: QuestionBrief
     text: QuestionText
     created_by_user_id: QuestionUserID
+    created_at: CreatedAt
     tags: list[QuestionTag]
 
 
@@ -143,3 +168,20 @@ class UserRegisterForm(BaseDTO):
     password: Password
     first_name: FirstName
     last_name: LastName
+
+
+class QuestionAnswerResponse(BaseDTO):
+    """ Данные созданного вопроса """
+
+    id: AnswerID
+    question_id: QuestionId
+    text: AnswerText
+    created_by_user_id: UserID
+    created_at: CreatedAt
+
+
+class CreateQuestionAnswerDTO(BaseDTO):
+    """ Данные для создания ответа на вопрос """
+
+    text: AnswerText
+    session_token: SessionToken
