@@ -1,5 +1,6 @@
 import React from 'react'
 import "./Header.css"
+import userLogo from '../assets/user.png';
  
 
 
@@ -9,10 +10,10 @@ export default function Header() {
         <h1 className='siteName'>Ответовед</h1>
         <div className='user'>
             <h1 className='userText'>Account name</h1>
-            <img src=""
+            <img src={userLogo}
                  alt="Фото пользователя"
-                 width="56"
-                 height="56"/>
+                 className='userLogo'
+                 />
         </div>
     </div>
   )

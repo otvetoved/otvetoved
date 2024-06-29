@@ -24,12 +24,20 @@ h1{
 
 .user{
     color: #FFFFFF;
-    display: inline;
-    margin-top: 25px;
+    display: flex;
+    
     margin-left: 10%;
+}
+
+.userLogo{
+    width:56px;
+    height:56px;
+    margin-left: 10px;
+    margin-top: 7px !important;
 }
 
 .userText{
     font-size: 16px;
+    margin-top: 25px;
     font-family: 'Montserrat', sans-serif;
 }

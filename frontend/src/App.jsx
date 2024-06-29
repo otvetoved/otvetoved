@@ -1,8 +1,8 @@
 import Header from './header/Header'
 import Footer from './footer/Footer'
-import Questions from './Questions'
 import './styles/App.css'
 
+import QuestionsList from './QuestionsList'
 
 
 function App() {
@@ -12,11 +12,8 @@ function App() {
       <Header/>
       <div className='body'>
         <button className='createQuestion'>Создать вопрос</button>
-         
-        <Questions/>
-        
+        <QuestionsList/>
       </div>
-     
       <Footer/>
     </>
   )
