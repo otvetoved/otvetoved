@@ -1,0 +1,133 @@
+.h2-question{
+    background-color: #162F46;
+    color: #FFC94F;
+    text-align: start;
+    padding-left: 15px !important;
+    padding: 5px;
+}
+
+.date-question{
+    background-color: #162F46;
+    color: #ffffff;
+    text-align: start;
+    padding-left: 15px !important;
+    padding: 3px;
+}
+
+
+.question-page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 20px; 
+    width: 70vw;
+  }
+
+
+.user-question{
+    width: 100px;
+    height: 100px;
+}
+
+.profile{
+    margin-top: 10px;
+    padding: 15px;
+    width: 110px;
+    height: 150px;
+    background-color: #162F46;
+    color: #ffffff;
+
+}
+
+.author-info{
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+}
+
+.question-info, .answer-info{
+    padding: 10px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.question-actions{
+   position:absolute; bottom:-40px; right: 0;
+}
+
+
+
+
+.like-btn, .dislike-btn {
+    padding: 10px;
+    margin-right: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+  }
+  
+  .answer-form {
+    margin-top: 20px;
+  }
+  
+  .answer-form h3 {
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .response-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .response-textarea {
+    width: 100%;
+    height: 110px;
+    padding: 20px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+  }
+  
+  .submit-btn {
+    position:absolute; bottom:-40px; right: 0;
+  }
+  
+  .submit-btn:hover {
+    background-color: #0056b3;
+  }
+
+.answer-form{
+    position:relative;
+    bottom: 0;
+    width: 70vw;
+    padding: 20px;
+    margin-left: -20px;
+}
+
+.answers{
+    margin-top: 30px;
+    margin-bottom: 90px;
+}
+
+.answer{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+
+.answer-actions {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
