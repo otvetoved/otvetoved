@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './QuestionPage.css';
 import user from './../assets/default-user.png';
+import {sessionToken} from './AuthenticationModal.jsx'
 
 
 const QuestionPage = () => {
@@ -11,11 +12,27 @@ const QuestionPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const questionResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/v1/questions/1`); // Нужно заменить {question_id} на конкретный ID, который мы будем откуда-то получать
+       // Нужно заменить {question_id} на конкретный ID, который мы будем откуда-то получать
+       const questionResponse = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/v1/questions/1`,
+        {
+          headers: {
+            Authorization: `Bearer ${sessionToken}`
+          }
+        }
+      );
         const questionData = await questionResponse.json();
         setQuestion(questionData);
 
-        const answersResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/v1/questions/1/answers`); //  Нужно заменить {question_id} на конкретный ID, который мы будем откуда-то получать
+        //  Нужно заменить {question_id} на конкретный ID, который мы будем откуда-то получать
+        const answersResponse = await fetch(
+            `${import.meta.env.VITE_BACKEND_URL}/v1/questions/1/answers`,
+            {
+              headers: {
+                Authorization: `Bearer ${sessionToken}`
+              }
+            }
+          );
         const answersData = await answersResponse.json();
         setAnswers(answersData);
       } catch (error) {
@@ -34,6 +51,7 @@ const QuestionPage = () => {
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/v1/questions/1/answers`, { //  Нужно заменить {question_id} на конкретный ID, который мы будем откуда-то получать
         method: 'POST',
         headers: {
+           Authorization: `Bearer ${sessionToken}`,            
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -54,41 +72,41 @@ const QuestionPage = () => {
     }
   };
 
-  const handleLike = async (id, type, action) => {
-    try {
-      let url;
+//   const handleLike = async (id, type, action) => {
+//     try {
+//       let url;
   
-      if (type === 'questions') {
-        url = `/v1/questions/${id}/${action}`;
-      } else if (type === 'answers') {
-        const questionId = question.id;
-        url = `/v1/questions/${questionId}/answers/${id}/${action}`;
-      }
+//       if (type === 'questions') {
+//         url = `/v1/questions/${id}/${action}`;
+//       } else if (type === 'answers') {
+//         const questionId = question.id;
+//         url = `/v1/questions/${questionId}/answers/${id}/${action}`;
+//       }
   
-      const response = await fetch(url, {
-        method: 'PUT',
-      });
+//       const response = await fetch(url, {
+//         method: 'PUT',
+//       });
   
-      if (response.ok) {
-        const updatedData = await response.json();
-        if (type === 'questions') {
-          setQuestion({ ...question, likes: updatedData.likes, dislikes: updatedData.dislikes });
-        } else {
-          const updatedAnswers = answers.map(answer => {
-            if (answer.id === id) {
-              return { ...answer, likes: updatedData.likes, dislikes: updatedData.dislikes };
-            }
-            return answer;
-          });
-          setAnswers(updatedAnswers);
-        }
-      } else {
-        console.error(`Failed to update ${type} ${id}: ${response.statusText}`);
-      }
-    } catch (error) {
-      console.error(`Failed to update ${type} ${id}: ${error}`);
-    }
-  };
+//       if (response.ok) {
+//         const updatedData = await response.json();
+//         if (type === 'questions') {
+//           setQuestion({ ...question, likes: updatedData.likes, dislikes: updatedData.dislikes });
+//         } else {
+//           const updatedAnswers = answers.map(answer => {
+//             if (answer.id === id) {
+//               return { ...answer, likes: updatedData.likes, dislikes: updatedData.dislikes };
+//             }
+//             return answer;
+//           });
+//           setAnswers(updatedAnswers);
+//         }
+//       } else {
+//         console.error(`Failed to update ${type} ${id}: ${response.statusText}`);
+//       }
+//     } catch (error) {
+//       console.error(`Failed to update ${type} ${id}: ${error}`);
+//     }
+//   };
   
   return (
     <div className="question-page">
@@ -105,8 +123,10 @@ const QuestionPage = () => {
               <div className="question-text">{question.text}</div>
             </div>
             <div className="question-actions">
-            <button onClick={() => handleLike(question.id, 'questions', 'like')} className="like-btn">👍 Лайк {question.likes}</button>
-            <button onClick={() => handleLike(question.id, 'questions', 'dislike')} className="dislike-btn">👎 Дизлайк {question.dislikes}</button>
+            {/* <button onClick={() => handleLike(question.id, 'questions', 'like')} className="like-btn">👍 Лайк {question.likes}</button>
+            <button onClick={() => handleLike(question.id, 'questions', 'dislike')} className="dislike-btn">👎 Дизлайк {question.dislikes}</button> */}
+             <button className="like-btn">👍 Лайк</button>
+             <button className="dislike-btn">👎 Дизлайк</button>
           </div>
           </div>
         </>
@@ -127,8 +147,10 @@ const QuestionPage = () => {
                 </div>
               </div>
               <div className="answer-actions">
-              <button onClick={() => handleLike(answer.id, 'answers', 'like')} className="like-btn">👍 Лайк {answer.likes}</button>
-                <button onClick={() => handleLike(answer.id, 'answers', 'dislike')} className="dislike-btn">👎 Дизлайк {answer.dislikes}</button>
+              {/* <button onClick={() => handleLike(answer.id, 'answers', 'like')} className="like-btn">👍 Лайк {answer.likes}</button>
+                <button onClick={() => handleLike(answer.id, 'answers', 'dislike')} className="dislike-btn">👎 Дизлайк {answer.dislikes}</button> */}
+               <button className="like-btn">👍 Лайк</button>
+               <button className="dislike-btn">👎 Дизлайк</button>               
               </div>
             </div>
           ))}
