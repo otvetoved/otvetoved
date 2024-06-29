@@ -42,29 +42,6 @@ const AuthenticationModal = ({ onClose, onRegisterClick }) => {
       });
   };
 
-  //Task: Последующие запросы к приложению должны содержать токен, который выдается в ответе к этому запросу.
-  useEffect(() => {
-    if (sessionToken) {
-      fetch(`${import.meta.env.VITE_BACKEND_URL}/v1/protected-data`, {
-        headers: {
-          Authorization: `Bearer ${sessionToken}`, 
-        },
-      })
-        .then(response => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            return response.json().then(error => Promise.reject(error));
-          }
-        })
-        .then(data => {
-          console.log('Authenticated data:', data);
-        })
-        .catch(error => {
-          console.error('Error fetching authenticated data: ', error);
-        });
-    }
-  }, [sessionToken]); 
 
   return (
     <div className="modal">
