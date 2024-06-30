@@ -25,8 +25,14 @@ const QuestionsList = () => {
             <div key={question.id} className="question">
                 <img src={arrow} className="arrow" alt='стрелка'/>
                 <p className='briefText'>{question.brief}</p>
-                <p className='createdAt'>{question.created_at}</p>
-                <p className='createdBy'>Автор вопроса</p>
+                <div className='questionInfo'>
+                  <p>
+                    {new Intl.DateTimeFormat("ru-RU", {
+                          year: "numeric",
+                          month: "2-digit",
+                          day: "2-digit"
+                      }).format(question.created_at*1000)} Автор вопроса</p>
+                </div>   
             </div>
           ))}
         </div>

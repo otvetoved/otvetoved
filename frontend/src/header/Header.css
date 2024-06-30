@@ -1,6 +1,12 @@
 @font-face {
-    font-family: 'Montserrat', sans-serif;
-    src: url('/fonts/Montserrat-Black.ttf') format('truetype')
+    font-family: 'Montserrat-Semibold';
+    src: url('../fonts/Montserrat/Montserrat-SemiBold.ttf') format('truetype')
+    
+}
+
+@font-face {
+    font-family: 'Monsterrat-Medium';
+    src: url('../fonts/Montserrat/Montserrat-Medium.ttf') format('truetype');
 }
 
 .header{
@@ -19,7 +25,7 @@ h1{
     margin-left: 10%;
     margin-top: 13px;
     font-size: 36px;
-    font-family: 'Montserrat', sans-serif;
+    font-family: Montserrat-Semibold;
 }
 
 .user{
@@ -39,5 +45,5 @@ h1{
 .userText{
     font-size: 16px;
     margin-top: 25px;
-    font-family: 'Montserrat', sans-serif;
+    font-family: Montserrat-Medium , sans-serif;
 }

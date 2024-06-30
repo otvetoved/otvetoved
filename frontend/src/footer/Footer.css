@@ -1,6 +1,6 @@
 @font-face {
-    font-family: 'Montserrat', sans-serif;
-    src: url('/fonts/Montserrat-Black.ttf') format('truetype')
+    font-family: 'Montserrat-Medium';
+    src: url('../fonts/Montserrat/Montserrat-Medium.ttf') format('truetype')
 }
 
 .footer{
@@ -15,7 +15,7 @@
 }
 
 .footerText{
-    font-family: 'Montserrat', sans-serif;
+    font-family: Montserrat-Medium;
     font-size: 12px;
     color: #FFFFFF;
 }
