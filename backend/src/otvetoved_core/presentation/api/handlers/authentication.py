@@ -32,9 +32,8 @@ async def create_new_account(
         raise HTTPException(403, "User with this username already exists")
     salt = bcrypt.gensalt()
     user = User(
-        first_name=payload.first_name,
-        last_name=payload.last_name,
         username=payload.username,
+        email=payload.email,
         password=bcrypt.hashpw(salt=salt, password=payload.password.encode()).decode("utf-8")
     )
     session.add(user)
