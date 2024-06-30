@@ -2,15 +2,20 @@ import React, { useState, useEffect } from 'react';
 import RegistrationModal from './RegistrationModal.jsx';
 import './Modal.css';
 
+
+// export const sessionToken = sessionToken;
+export let sessionToken = '';
+
+
 const AuthenticationModal = ({ onClose, onRegisterClick }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [sessionToken, setSessionToken] = useState(null); // State to store the session token
+  const [sessionToken, setSessionToken] = useState(null); 
   const [showRegistration, setShowRegistration] = useState(false);
 
   const handleLogin = () => {
     console.log('Sending data:', { username, password });
-    fetch(`${import.meta.env.VITE_BACKEND_URL}/v1/authentication`, {
+    fetch('https://otvetoved.ru/api/v1/authentication', {
       method: 'POST',
       mode: 'cors',
       headers: {
@@ -30,6 +35,8 @@ const AuthenticationModal = ({ onClose, onRegisterClick }) => {
       })
       .then(data => {
         setSessionToken(data.session_token);
+        sessionToken = data.session_token;
+        console.log(data.session_token)
         alert('Вы успешно вошли!');
       })
       .catch(error => {

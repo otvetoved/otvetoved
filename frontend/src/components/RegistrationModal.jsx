@@ -9,7 +9,7 @@ const RegistrationModal = ({ onClose, onLoginClick }) => {
   const [showAuthentication, setShowAuthentication] = useState(false); 
 
   const handleRegister = () => {
-    fetch(`${import.meta.env.VITE_BACKEND_URL}/v1/authentication/register`, {
+    fetch('https://otvetoved.ru/api/v1/authentication/register', {
       method: 'POST',
       mode: 'cors',
       headers: {
