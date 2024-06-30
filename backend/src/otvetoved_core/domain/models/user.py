@@ -14,8 +14,7 @@ class User(BaseRelationalEntity):
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
 
-    first_name: Mapped[str | None]
-    last_name: Mapped[str | None]
+    email: Mapped[str] = mapped_column(default="mail@example.com")
     username: Mapped[str] = mapped_column(unique=True)
     password: Mapped[str]
     created_at: Mapped[datetime] = mapped_column(default=datetime.now)

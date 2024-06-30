@@ -14,6 +14,7 @@ router = APIRouter(prefix="/questions/{question_id}/answers", tags=["answers"])
 @router.post(
     "",
     response_model=QuestionAnswerResponse,
+    name="Оставить ответ на вопрос",
 )
 @inject
 async def leave_answer(
@@ -46,6 +47,7 @@ AnswerListDTO = BaseRootDTO[list[QuestionAnswerResponse]]
 @router.get(
     "",
     response_model=AnswerListDTO,
+    name="Получить все ответы на вопрос",
 )
 @inject
 async def get_answers(

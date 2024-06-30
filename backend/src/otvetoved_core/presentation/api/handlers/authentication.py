@@ -69,7 +69,7 @@ async def create_new_session(
     if user is None or \
             not bcrypt.checkpw(password=payload.password.encode(),
                                hashed_password=user.password.encode("utf-8")):
-        raise HTTPException(status_code=403, detail="Invalid password or username")
+        raise HTTPException(status_code=401, detail="Invalid password or username")
 
     user_session = UserSession(
         user_id=user.id

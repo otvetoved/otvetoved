@@ -23,16 +23,6 @@ UserID = Annotated[int, Field(
     "Идентификатор пользователя.",
 )]
 
-FirstName = Annotated[str, Field(
-    title=
-    "Имя.",
-)]
-
-LastName = Annotated[str, Field(
-    title=
-    "Фамилия.",
-)]
-
 QuestionBrief = Annotated[str, Field(
     title=
     "Краткое содержание вопроса.",
@@ -81,11 +71,19 @@ SessionToken = Annotated[UUID4, Field(
     "Токен, сгенерированный для сессии входа.  Передается в другие"
     " запросы для подтверждения того, что их выполняет владелец этой"
     " сессии.",
+    examples=[
+        "92ba6cae-6637-4239-bbc5-bc36eb157490",
+        "d2ee0602-9c83-41a5-b2d9-ffee1bf23843",
+    ]
 )]
 
 AnswerID = Annotated[int, Field(
     title=
     "Интедификатор ответа",
+    examples=[
+        1,
+        2,
+    ]
 )]
 
 AnswerText = Annotated[str, Field(
@@ -108,6 +106,19 @@ CreatedAt = Annotated[Timestamp, Field(
     ],
 )]
 
+UserEmail = Annotated[str, Field(
+    title="Почта пользователя.",
+    examples=[
+        "mail@example.com"
+    ]
+)]
+
+
+class UserDTO(BaseDTO):
+    username: Username
+    id: UserID
+    email: UserEmail
+
 
 class QuestionTag(BaseDTO):
     id: TagID
@@ -122,6 +133,7 @@ class QuestionDTO(BaseDTO):
     brief: QuestionBrief
     text: QuestionText
     created_at: CreatedAt
+    created_by_user: UserDTO
 
 
 class CreateQuestionDTO(BaseDTO):
@@ -138,7 +150,7 @@ class QuestionFullInfoDTO(BaseDTO):
     id: QuestionId
     brief: QuestionBrief
     text: QuestionText
-    created_by_user_id: QuestionUserID
+    created_by_user: UserDTO
     created_at: CreatedAt
     tags: list[QuestionTag]
 
@@ -170,8 +182,7 @@ class UserRegisterForm(BaseDTO):
 
     username: Username
     password: Password
-    first_name: FirstName
-    last_name: LastName
+    email: UserEmail
 
 
 class QuestionAnswerResponse(BaseDTO):
@@ -180,7 +191,7 @@ class QuestionAnswerResponse(BaseDTO):
     id: AnswerID
     question_id: QuestionId
     text: AnswerText
-    created_by_user_id: UserID
+    created_by_user: UserDTO
     created_at: CreatedAt
 
 
