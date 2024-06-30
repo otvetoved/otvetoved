@@ -3,7 +3,7 @@
     color: #FFC94F;
     text-align: start;
     padding-left: 15px !important;
-    padding: 5px;
+    padding: 10px;
 }
 
 .date-question{
@@ -21,11 +21,13 @@
     height: 100vh;
     padding: 20px; 
     width: 70vw;
+    margin-left: 13% !important;
+    margin-top: 3% !important;
   }
 
 
 .user-question{
-    width: 100px;
+    width: 110px;
     height: 100px;
 }
 

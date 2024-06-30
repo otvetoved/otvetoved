@@ -47,6 +47,7 @@ const QuestionPage = () => {
 
   const handleAnswerSubmit = async (e) => {
     e.preventDefault();
+    
     try {
       const response = await fetch('https://otvetoved.ru/api/v1/questions/3/answers', { //  Нужно заменить {question_id} на конкретный ID, который мы будем откуда-то получать
         method: 'POST',
@@ -56,7 +57,8 @@ const QuestionPage = () => {
         },
         body: JSON.stringify({
           text: newAnswer,
-          created_by_user_id: 1, //  Нужно заменить {created_by_user_id} на конкретный ID, который мы будем получать после входа пользователя
+          session_token: sessionToken
+          //created_by_user_id: 1, //  Нужно заменить {created_by_user_id} на конкретный ID, который мы будем получать после входа пользователя
         }),
       });
 
