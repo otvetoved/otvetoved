@@ -16,11 +16,13 @@ const QuestionsList = () => {
       });
   }, []);
 
+
   return (
     <div>
       {questions && (
         <div className="questionsList">
           {questions.map(question => (
+            <Link to={`/questions/${question.id}`}>
             <div key={question.id} className="question">
               <img src={arrow} className="arrow" alt='стрелка' />
               <p className='briefText'>{question.brief}</p>
@@ -36,6 +38,7 @@ const QuestionsList = () => {
               }</p>
               <p className='createdBy'>{question.created_by_user.username}</p>
             </div>
+            </Link>
           ))}
         </div>
       )}
