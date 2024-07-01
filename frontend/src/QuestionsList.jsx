@@ -29,9 +29,6 @@ const QuestionsList = () => {
                   year: "numeric",
                   month: "2-digit",
                   day: "2-digit",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                  second: "2-digit",
                 }).format(question.created_at*1000)
               }</p>
               <p className='createdBy'>{question.created_by_user.username}</p>
