@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './styles/QuestionsList.css';
 import arrow from './assets/arrow.png';
-//import {sessionToken} from './AuthenticationModal.jsx'
 
 
 const QuestionsList = () => {

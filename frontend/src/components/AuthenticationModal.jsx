@@ -3,10 +3,6 @@ import RegistrationModal from './RegistrationModal.jsx';
 import './Modal.css';
 
 
-// export const sessionToken = sessionToken;
-export let sessionToken = '';
-
-
 const AuthenticationModal = ({ onClose, onRegisterClick }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -34,8 +30,9 @@ const AuthenticationModal = ({ onClose, onRegisterClick }) => {
         }
       })
       .then(data => {
-        setSessionToken(data.session_token);
-        console.log(data.session_token)
+        const token = data.session_token;
+        localStorage.setItem('sessionToken', token);
+        setSessionToken(token);
         alert('Вы успешно вошли!');
       })
       .catch(error => {

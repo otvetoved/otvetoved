@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './QuestionPage.css';
 import user from './../assets/default-user.png';
-import {sessionToken} from './AuthenticationModal.jsx'
 
 
 const QuestionPage = () => {
   const [question, setQuestion] = useState(null);
   const [answers, setAnswers] = useState([]);
   const [newAnswer, setNewAnswer] = useState('');
+  const sessionToken = localStorage.getItem('sessionToken');
+
 
   useEffect(() => {
     const fetchData = async () => {

@@ -1,11 +1,12 @@
 import React, { useState} from 'react';
 import './Modal.css';
-import { sessionToken } from './AuthenticationModal.jsx';
 
 const QuestionCreatingPage = ({ onClose }) => {
   const [brief, setBrief] = useState('');
   const [text, setText] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
+  const sessionToken = localStorage.getItem('sessionToken');
+
 
   const handlePublication = () => {
     const data = {
