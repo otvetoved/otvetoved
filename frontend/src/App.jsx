@@ -1,28 +1,28 @@
 import React, { useState } from 'react';
-import main from "./main"
 import './styles/App.css'
 import {
   BrowserRouter as Router,
-  Switch,
+  Routes,
   Route,
 } from 'react-router-dom';
 import Header from './header/Header'
 import Footer from './footer/Footer'
 import QuestionPage from './components/QuestionPage';
+import Home from "./Home.jsx";
 
 
 function App() {
-
   return (
     <>
       <Header />
       <Router>
-        <Switch>
+        <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/questions/:id">
-            <QuestionPage question_id={id}/>
-          </Route>
-        </Switch>
+          <Route
+              path="/questions/:id"
+              element={<QuestionPage/>}
+          />
+        </Routes>
       </Router>
       <Footer />
     </>
