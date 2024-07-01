@@ -15,7 +15,7 @@ const QuestionPage = () => {
       try {
        // Нужно заменить {question_id} на конкретный ID, который мы будем откуда-то получать
        const questionResponse = await fetch(
-        'https://otvetoved.ru/api/v1/questions/3',
+        `https://otvetoved.ru/api/v1/questions/${question_id}`,
         {
           headers: {
             Authorization: `Bearer ${sessionToken}`
@@ -27,7 +27,7 @@ const QuestionPage = () => {
 
         //  Нужно заменить {question_id} на конкретный ID, который мы будем откуда-то получать
         const answersResponse = await fetch(
-            'https://otvetoved.ru/api/v1/questions/3/answers',
+            `ttps://otvetoved.ru/api/v1/questions/${question_id}/answers`,
             {
               headers: {
                 Authorization: `Bearer ${sessionToken}`
@@ -50,7 +50,7 @@ const QuestionPage = () => {
     e.preventDefault();
     
     try {
-      const response = await fetch('https://otvetoved.ru/api/v1/questions/3/answers', { //  Нужно заменить {question_id} на конкретный ID, который мы будем откуда-то получать
+      const response = await fetch(`https://otvetoved.ru/api/v1/questions/${question_id}/answers`, { //  Нужно заменить {question_id} на конкретный ID, который мы будем откуда-то получать
         method: 'POST',
         headers: {
            Authorization: `Bearer ${sessionToken}`,            
