@@ -64,6 +64,7 @@
   .modal-input {
     width: 300px;
     height: 25px;
+    padding-left: 5px;
   }
   
   .modal-p {
@@ -85,7 +86,7 @@
     margin-bottom: 10px;
     width: 440px; 
     height: 25px;
-  
+    padding-left: 5px;
   }
 
     
