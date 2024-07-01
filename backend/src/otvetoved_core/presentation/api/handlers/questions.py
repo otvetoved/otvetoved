@@ -55,7 +55,7 @@ QuestionListDTO = BaseRootDTO[list[QuestionDTO]]
 async def get_questions_list(
         session: FromDishka[DatabaseSession],
 ):
-    stmt = select(Question)
+    stmt = select(Question).order_by(Question.id.desc())
     questions = await session.scalars(stmt)
     return QuestionListDTO.model_validate(questions)
 
