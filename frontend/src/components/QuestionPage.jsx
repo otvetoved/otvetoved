@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './QuestionPage.css';
 import user from './../assets/default-user.png';
+import {useParams} from "react-router-dom";
 
 
 const QuestionPage = () => {
+  const { id } = useParams();
+  const question_id = id;
   const [question, setQuestion] = useState(null);
   const [answers, setAnswers] = useState([]);
   const [newAnswer, setNewAnswer] = useState('');
@@ -116,7 +119,16 @@ const QuestionPage = () => {
       {question && (
         <>
           <h2 className="h2-question">{question.brief}</h2>
-          <div className="date-question">{new Date(question.created_at * 1000)}</div>
+          <div className="date-question">{
+                new Intl.DateTimeFormat("ru-RU", {
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  second: "2-digit",
+                }).format(question.created_at*1000)
+              }</div>
           <div className="author-info">
             <div className="profile">
               <img className="user-question" src={user} alt="Аватарка" />
@@ -139,7 +151,16 @@ const QuestionPage = () => {
         <div className="answers">
           {answers.map(answer => (
             <div key={answer.id} className="answer">
-              <div className="date-question">{new Date(answer.created_at * 1000)}</div>
+              <div className="date-question">{
+                new Intl.DateTimeFormat("ru-RU", {
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  second: "2-digit",
+                }).format(question.created_at*1000)
+              }</div>
               <div className="author-info">
                 <div className="profile">
                   <img className="user-question" src={user} alt="Аватарка" />

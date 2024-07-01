@@ -63,13 +63,19 @@ async def get_questions_list(
 @router.get(
     "/{question_id}",
     response_model=QuestionFullInfoDTO,
-    name="Получить конкретный вопрос по id"
+    name="Получить конкретный вопрос по id",
 )
 @inject
 async def get_question(
         session: FromDishka[DatabaseSession],
         question_id: int,
 ):
+    """
+    ```js
+    let a = 1;
+    ```
+
+    """
     stmt = select(Question).where(Question.id == question_id)
     questions = await session.scalars(stmt)
     question = questions.one_or_none()

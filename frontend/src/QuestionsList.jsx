@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './styles/QuestionsList.css';
 import arrow from './assets/arrow.png';
+import {Link} from "react-router-dom";
 
 
 const QuestionsList = () => {
@@ -16,11 +17,13 @@ const QuestionsList = () => {
       });
   }, []);
 
+
   return (
     <div>
       {questions && (
         <div className="questionsList">
           {questions.map(question => (
+            <Link to={`/questions/${question.id}`}>
             <div key={question.id} className="question">
               <img src={arrow} className="arrow" alt='стрелка' />
               <p className='briefText'>{question.brief}</p>
@@ -33,6 +36,7 @@ const QuestionsList = () => {
               }</p>
               <p className='createdBy'>{question.created_by_user.username}</p>
             </div>
+            </Link>
           ))}
         </div>
       )}
