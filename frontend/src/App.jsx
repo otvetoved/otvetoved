@@ -18,9 +18,22 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //обработать данные формы
-    console.log('Title:', title);
-    console.log('Question:', question);
+
+    const questionData = {
+      title,
+      question
+    };
+
+    axios.post('http://127.0.0.1:8010/api', questionData)
+    .then(response => {
+      console.log(response.data);
+      setTitle('');
+      setQuestion('');
+    })
+    .catch(error => {
+      console.error('There was an error saving the question!', error);
+    });
+
   };
 
   return (
