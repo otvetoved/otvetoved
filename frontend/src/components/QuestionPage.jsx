@@ -4,6 +4,7 @@ import user from './../assets/default-user.png';
 
 
 const QuestionPage = () => {
+  console.log(props.match.params.question_id)
   const [question, setQuestion] = useState(null);
   const [answers, setAnswers] = useState([]);
   const [newAnswer, setNewAnswer] = useState('');
