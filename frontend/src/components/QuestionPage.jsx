@@ -120,7 +120,7 @@ const QuestionPage = () => {
           <div className="author-info">
             <div className="profile">
               <img className="user-question" src={user} alt="Аватарка" />
-              <div className="author-name">{question.created_bu_user.username}</div>
+              <div className="author-name">{question.created_by_user.username}</div>
             </div>
             <div className="question-info">
               <div className="question-text">{question.text}</div>
@@ -143,7 +143,7 @@ const QuestionPage = () => {
               <div className="author-info">
                 <div className="profile">
                   <img className="user-question" src={user} alt="Аватарка" />
-                  <div className="author-name">{answer.created_bu_user.username}</div>
+                  <div className="author-name">{answer.created_by_user.username}</div>
                 </div>
                 <div className="answer-info">
                   <div className="answer-text">{answer.text}</div>

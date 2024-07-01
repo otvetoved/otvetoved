@@ -34,7 +34,7 @@ const QuestionsList = () => {
                   second: "2-digit",
                 }).format(question.created_at*1000)
               }</p>
-              <p className='createdBy'>Автор вопроса</p>
+              <p className='createdBy'>{question.created_by_user.username}</p>
             </div>
           ))}
         </div>
