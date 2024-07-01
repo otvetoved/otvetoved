@@ -24,6 +24,8 @@
   
   .modal-head {
     color: #FFC94F;
+    font-weight: bold;
+    margin-top: 25px;
   }
   
   .close {
@@ -44,6 +46,8 @@
     width: 300px;
     padding: 15px 30px; 
     margin-top: 20px;
+    font-weight: bold;
+    font-size: 18px;
   }
 
   .modal-span:hover{
@@ -102,6 +106,7 @@
     color: #FFC94F;
     margin-top: 25px;
     margin-bottom: 25px;
+    
   }
 
 
@@ -111,6 +116,8 @@
     width: 300px;
     padding: 15px 30px; 
     margin-top: 60px;
+    font-weight: bold;
+    font-size: 18px;
   }
 
   .question-p {
