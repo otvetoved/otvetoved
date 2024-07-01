@@ -66,7 +66,7 @@ const AuthenticationModal = ({ onClose, onRegisterClick }) => {
             onChange={e => setPassword(e.target.value)}
             placeholder="Пароль"
           />
-          <button className="modal-button" onClick={handleLogin}>
+          <button className="modal-button" type="button" onClick={handleLogin}>
             Войти
           </button>
         </form>

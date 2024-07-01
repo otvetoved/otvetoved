@@ -51,7 +51,7 @@ const RegistrationModal = ({ onClose, onLoginClick }) => {
           <input type="text" className="modal-input" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Имя пользователя" />
           <input type="email" className="modal-input"  value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Почта" />
           <input type="password" className="modal-input"  value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Пароль" />
-          <button className="modal-button"  onClick={handleRegister}>Зарегистрироваться</button>
+          <button className="modal-button" type="button"  onClick={handleRegister}>Зарегистрироваться</button>
         </form>
         <p className="modal-p" >Уже есть аккаунт? <span className="modal-span" onClick={onLoginClick}>Войдите</span></p>
         {showAuthentication && <AuthenticationModal onClose={() => setShowAuthentication(false)} onRegisterClick={() => setShowAuthentication(false)} />}
