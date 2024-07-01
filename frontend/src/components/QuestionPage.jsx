@@ -115,11 +115,11 @@ const QuestionPage = () => {
       {question && (
         <>
           <h2 className="h2-question">{question.brief}</h2>
-          <div className="date-question">{question.create_time}</div>
+          <div className="date-question">{new Date(question.created_at * 1000)}</div>
           <div className="author-info">
             <div className="profile">
               <img className="user-question" src={user} alt="Аватарка" />
-              <div className="author-name">{question.author}</div>
+              <div className="author-name">{question.created_bu_user.username}</div>
             </div>
             <div className="question-info">
               <div className="question-text">{question.text}</div>
@@ -138,11 +138,11 @@ const QuestionPage = () => {
         <div className="answers">
           {answers.map(answer => (
             <div key={answer.id} className="answer">
-              <div className="date-question">{answer.create_time}</div>
+              <div className="date-question">{new Date(answer.created_at * 1000)}</div>
               <div className="author-info">
                 <div className="profile">
                   <img className="user-question" src={user} alt="Аватарка" />
-                  <div className="author-name">{answer.author}</div>
+                  <div className="author-name">{answer.created_bu_user.username}</div>
                 </div>
                 <div className="answer-info">
                   <div className="answer-text">{answer.text}</div>
