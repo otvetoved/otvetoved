@@ -35,7 +35,6 @@ const AuthenticationModal = ({ onClose, onRegisterClick }) => {
       })
       .then(data => {
         setSessionToken(data.session_token);
-        sessionToken = data.session_token;
         console.log(data.session_token)
         alert('Вы успешно вошли!');
       })
