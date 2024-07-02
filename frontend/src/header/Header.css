@@ -1,6 +1,6 @@
 @font-face {
-    font-family: 'Montserrat-Semibold';
-    src: url('../fonts/Montserrat/Montserrat-SemiBold.ttf') format('truetype')
+    font-family: 'Montserrat-Bold';
+    src: url('../fonts/Montserrat/Montserrat-Bold.ttf') format('truetype')
     
 }
 
@@ -20,12 +20,10 @@ h1{
 }
 
 .siteName{
-    color: #FFC94F;
-    margin-right: 40%;
-    margin-left: 10%;
+    color: #FFC94F;    
     margin-top: 13px;
     font-size: 36px;
-    font-family: Montserrat-Semibold;
+    font-family: Montserrat-Bold;
 }
 
 .user{
@@ -47,4 +45,10 @@ h1{
     font-size: 16px;
     margin-top: 25px;
     font-family: Montserrat-Medium , sans-serif;
+}
+
+.linkSiteName{
+    text-decoration: none;
+    margin-right: 40%;
+    margin-left: 10%;
 }

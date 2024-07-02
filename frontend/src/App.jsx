@@ -14,8 +14,9 @@ import Home from "./Home.jsx";
 function App() {
   return (
     <>
-      <Header />
+      
       <Router>
+        <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
