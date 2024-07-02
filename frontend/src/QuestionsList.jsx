@@ -23,7 +23,7 @@ const QuestionsList = () => {
       {questions && (
         <div className="questionsList">
           {questions.map(question => (
-            <Link to={`/questions/${question.id}`}>
+            <Link to={`/questions/${question.id}`} className="link">
             <div key={question.id} className="question">
               <img src={arrow} className="arrow" alt='стрелка' />
               <p className='briefText'>{question.brief}</p>
