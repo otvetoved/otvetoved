@@ -30,7 +30,7 @@ const QuestionPage = () => {
 
         //  Нужно заменить {question_id} на конкретный ID, который мы будем откуда-то получать
         const answersResponse = await fetch(
-            `ttps://otvetoved.ru/api/v1/questions/${question_id}/answers`,
+            `https://otvetoved.ru/api/v1/questions/${question_id}/answers`,
             {
               headers: {
                 Authorization: `Bearer ${sessionToken}`
@@ -38,6 +38,7 @@ const QuestionPage = () => {
             }
           );
         const answersData = await answersResponse.json();
+        console.log(answersData);
         setAnswers(answersData);
       } catch (error) {
         console.error('Failed to fetch question and answers:', error);
@@ -118,7 +119,7 @@ const QuestionPage = () => {
     <div className="question-page">
       {question && (
         <>
-          <h2 className="h2-question">{question.brief}</h2>
+          <h2 className="h2-question">Вопрос: {question.brief}</h2>
           <div className="date-question">{
                 new Intl.DateTimeFormat("ru-RU", {
                   year: "numeric",
@@ -140,13 +141,13 @@ const QuestionPage = () => {
             <div className="question-actions">
             {/* <button onClick={() => handleLike(question.id, 'questions', 'like')} className="like-btn">👍 Лайк {question.likes}</button>
             <button onClick={() => handleLike(question.id, 'questions', 'dislike')} className="dislike-btn">👎 Дизлайк {question.dislikes}</button> */}
-             <button className="like-btn">👍 Лайк</button>
-             <button className="dislike-btn">👎 Дизлайк</button>
+             {/* <button className="like-btn">👍 Лайк</button>
+             <button className="dislike-btn">👎 Дизлайк</button> */}
           </div>
           </div>
         </>
       )}
-
+          <h2 className="h2-answers">Ответы</h2>
       {answers.length > 0 && (
         <div className="answers">
           {answers.map(answer => (

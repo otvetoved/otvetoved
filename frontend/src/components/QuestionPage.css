@@ -4,6 +4,20 @@
     text-align: start;
     padding-left: 15px !important;
     padding: 10px;
+    margin-bottom: 10px;
+    
+}
+
+
+.h2-answers{
+  background-color: #162F46;
+  color: #FFC94F;
+  text-align: start;
+  padding-left: 15px !important;
+  padding: 10px;
+  /* margin-bottom: 10px; */
+  margin-bottom: -15px;
+  margin-top: 25px;
 }
 
 .date-question{
@@ -125,7 +139,7 @@
 }
 
 .answers{
-    margin-top: 30px;
+    margin-top: 15px;
     margin-bottom: 90px;
 }
 
