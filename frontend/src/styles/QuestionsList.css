@@ -19,6 +19,7 @@
     align-items: center;
     width: 100%;
     max-width: 1250px;
+    overflow-wrap: break-word;
 }
 
 .questionInfo p{
@@ -26,6 +27,7 @@
     float: right;
     max-width: 100%;
     min-height: 2em;
+    
 }
 
 
@@ -42,8 +44,9 @@
     font-size: 20px;
     text-wrap: wrap;
     flex-shrink: 1;
-    width: 100%;
+    width: 75%;
     padding: 15px 0;
+    overflow-wrap: break-word;
 }
 
 .createdAt{

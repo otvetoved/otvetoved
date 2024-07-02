@@ -156,3 +156,13 @@
     bottom: 0;
     right: 0;
 }
+
+.question-text,.answer-text{
+  max-width: 100vh;
+  overflow-wrap: break-word;
+}
+
+.h2-answers,.h2-question{
+  overflow-wrap: break-word;
+
+}

@@ -151,7 +151,7 @@ const QuestionPage = () => {
       {answers.length > 0 && (
         <div className="answers">
           {answers.map(answer => (
-            <div key={answer.id} className="answer">
+            <div key={answer.id} className="answer" style={{wordWrap:'break-word'}}>
               <div className="date-question">{
                 new Intl.DateTimeFormat("ru-RU", {
                   year: "numeric",
