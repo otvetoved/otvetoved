@@ -13,13 +13,11 @@
 }
 
 .question{
-    margin: 10px;
     background-color:#162F46;
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    margin: 5px 0;
 }
 
 .questionInfo p{
@@ -65,4 +63,10 @@
     display: inline-block;
     margin-right: 2%;
     flex-shrink: 5;
+}
+
+.link{
+    text-decoration: none;
+    color: white !important;
+    margin: 5px 0;
 }
