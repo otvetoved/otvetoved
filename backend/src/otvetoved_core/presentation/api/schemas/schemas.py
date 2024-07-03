@@ -29,6 +29,7 @@ QuestionBrief = Annotated[str, Field(
     description=
     "Краткое содержание вопроса, которое будет отображаться как "
     "заголовок этого вопроса.",
+    max_length=200
 )]
 
 QuestionText = Annotated[str | None, Field(
@@ -36,7 +37,8 @@ QuestionText = Annotated[str | None, Field(
     "Текст вопроса",
     description=
     "Текст вопроса.  Может быть опущен, если краткое содержание вопроса"
-    " содержит достаточно информации о вопросе."
+    " содержит достаточно информации о вопросе.",
+    max_length=15000
 )]
 
 QuestionId = Annotated[int, Field(
@@ -91,6 +93,7 @@ AnswerText = Annotated[str, Field(
     "Текст ответа",
     description=
     "Текст, который содержит в себе ответ на вопрос",
+    max_length=15000
 )]
 
 Timestamp = Annotated[datetime, PlainSerializer(

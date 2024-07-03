@@ -13,6 +13,7 @@ router = APIRouter(prefix="/questions/{question_id}/answers", tags=["answers"])
 
 @router.post(
     "",
+    status_code=201,
     response_model=QuestionAnswerResponse,
     name="Оставить ответ на вопрос",
 )

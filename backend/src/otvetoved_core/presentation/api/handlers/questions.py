@@ -17,6 +17,7 @@ router = APIRouter(prefix="/questions", tags=["questions"])
 
 @router.post(
     "",
+    status_code=201,
     response_model=QuestionDTO,
     name="Создать новый вопрос",
 )

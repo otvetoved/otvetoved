@@ -19,6 +19,7 @@ router = APIRouter(prefix="/authentication", tags=["auth"])
 
 @router.post(
     "/register",
+    status_code=201,
     response_model=UserRegisterResponse,
     name="Зарегистрироваться",
 )
