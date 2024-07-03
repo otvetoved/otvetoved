@@ -10,6 +10,17 @@ const AuthenticationModal = ({ onClose, onRegisterClick }) => {
   const [showRegistration, setShowRegistration] = useState(false);
 
   const handleLogin = () => {
+    
+    if (!username.trim()) {
+      alert('Введите никнейм.');
+      return;
+    }
+
+    if (!password.trim()) {
+      alert('Введите пароль.');
+      return;
+    }
+
     console.log('Sending data:', { username, password });
     fetch('https://otvetoved.ru/api/v1/authentication', {
       method: 'POST',

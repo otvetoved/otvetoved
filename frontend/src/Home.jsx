@@ -1,29 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './styles/App.css'
 import QuestionsList from './QuestionsList'
 import QuestionCreatingPage from './components/QuestionCreatingPage'
 
-
-
 function Home() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+  useEffect(() => {
+    const sessionToken = localStorage.getItem('sessionToken');
+    setIsUserAuthenticated(!!sessionToken);
+  }, []);
 
-    const openModal = () => {
-      setIsModalOpen(true);
-    };
-    
-    const closeModal = () => {
-      setIsModalOpen(false);
-    };
-    
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <>
       <div className='body'>
-      <button className='createQuestion' onClick={openModal}>Создать вопрос</button>
-      {isModalOpen && <QuestionCreatingPage onClose={closeModal} />}
-        <QuestionsList/>
+        {isUserAuthenticated ? (
+          <button className='createQuestion' onClick={openModal}>
+            Создать вопрос
+          </button>
+        ) : (
+          <button className='createQuestion' disabled>
+            Вы должны быть авторизованы
+          </button>
+        )}
+        {isModalOpen && <QuestionCreatingPage onClose={closeModal} />}
+        <QuestionsList />
       </div>
     </>
   )
