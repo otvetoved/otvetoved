@@ -1,13 +1,14 @@
 import bcrypt
 from dishka.integrations.fastapi import inject, FromDishka
 from fastapi import APIRouter, HTTPException
+from pydantic import UUID4
 from sqlalchemy import select, ScalarResult
-
-from otvetoved_core.infrastructure.database import DatabaseSession
 
 from otvetoved_core.domain.models.user import User
 from otvetoved_core.domain.models.user_session import UserSession
-from otvetoved_core.presentation.api.schemas.schemas import AuthResponseDTO, AuthDTO, UserRegisterResponse, UserRegisterForm
+from otvetoved_core.infrastructure.database import DatabaseSession
+from otvetoved_core.presentation.api.schemas.schemas import AuthResponseDTO, AuthDTO, UserRegisterResponse, \
+    UserRegisterForm, UserDTO
 
 router = APIRouter(prefix="/authentication", tags=["auth"])
 
@@ -78,3 +79,22 @@ async def create_new_session(
     await session.commit()
 
     return AuthResponseDTO.model_validate(user_session)
+
+
+@router.get(
+    "/me",
+    name="Получение информации о пользователе по session_token",
+    response_model=UserDTO,
+)
+@inject
+async def get_user_by_session(
+        session_token: UUID4,
+        session: FromDishka[DatabaseSession]
+):
+    stmt = select(UserSession).where(UserSession.session_token == session_token)
+    sessions = await session.scalars(stmt)
+    user_session: UserSession = sessions.one_or_none()
+    if not user_session:
+        raise HTTPException(404, "Session not found")
+    user = user_session.user
+    return UserDTO.model_validate(user)
