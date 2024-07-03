@@ -52,6 +52,11 @@ const QuestionPage = () => {
 
   const handleAnswerSubmit = async (e) => {
     e.preventDefault();
+
+    if (!newAnswer.trim()) {
+      alert('Введите ответ.');
+      return;
+    }
     
     try {
       const response = await fetch(`https://otvetoved.ru/api/v1/questions/${question_id}/answers`, { //  Нужно заменить {question_id} на конкретный ID, который мы будем откуда-то получать

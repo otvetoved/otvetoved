@@ -9,6 +9,16 @@ const QuestionCreatingPage = ({ onClose }) => {
 
 
   const handlePublication = () => {
+    if (!brief.trim()) {
+      alert('Введите заголовок вопроса.');
+      return;
+    }
+
+    if (!text.trim()) {
+      alert('Введите описание вопроса.');
+      return;
+    }
+
     const data = {
       brief,
       text,

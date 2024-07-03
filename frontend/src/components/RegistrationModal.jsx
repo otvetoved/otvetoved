@@ -9,6 +9,23 @@ const RegistrationModal = ({ onClose, onLoginClick }) => {
   const [showAuthentication, setShowAuthentication] = useState(false); 
 
   const handleRegister = () => {
+
+    if (!username.trim()) {
+      alert('Введите никнейм.');
+      return;
+    }
+
+    if (!password.trim()) {
+      alert('Введите пароль.');
+      return;
+    }
+
+    if(!email.trim()){
+      alert("Введите почту.")
+      return;
+    }
+
+
     fetch('https://otvetoved.ru/api/v1/authentication/register', {
       method: 'POST',
       mode: 'cors',
