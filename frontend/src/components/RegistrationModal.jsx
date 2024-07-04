@@ -7,6 +7,7 @@ const RegistrationModal = ({ onClose, onLoginClick }) => {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [showAuthentication, setShowAuthentication] = useState(false); 
+  const [sessionToken, setSessionToken] = useState(localStorage.getItem('sessionToken') || '');
 
   const handleRegister = () => {
 
@@ -20,61 +21,92 @@ const RegistrationModal = ({ onClose, onLoginClick }) => {
       return;
     }
 
-    if(!email.trim()){
-      alert("Введите почту.")
+    if (!email.trim()) {
+      alert("Введите почту.");
       return;
     }
 
-
     fetch('https://otvetoved.ru/api/v1/authentication/register', {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username,
-        email,
-        password,
-      }),
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            username,
+            email,
+            password,
+        }),
     })
     .then(response => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        return response.json().then(error => Promise.reject(error));
-      }
+        if (response.ok) {
+            return response.json();
+        } else {
+            return response.json().then(error => Promise.reject(error));
+        }
     })
     .then(data => {
-      alert(`Вы успешно зарегистрировались: ${data.username}`);
+        alert(`Вы успешно зарегистрировались: ${data.username}`);
+        console.log('Sending data:', { username, password });
+
+        return fetch('https://otvetoved.ru/api/v1/authentication', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username,
+                password,
+            }),
+        });
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            return response.json().then(error => Promise.reject(error));
+        }
+    })
+    .then(data => {
+        const token = data.session_token;
+        localStorage.setItem('sessionToken', token);
     })
     .catch(error => {
-      console.error('Error occurred while registering: ', error);
-      if (error.detail) {
-        alert('Ошибка регистрации: ' + error.detail);
-      } else {
-        alert('Произошла ошибка регистрации. Пожалуйста, попробуйте позже.');
-      }
+        console.error('Error occurred: ', error);
+        if (error.detail) {
+            alert('Ошибка: ' + error.detail);
+        } else {
+            alert('Произошла ошибка. Пожалуйста, попробуйте позже.');
+        }
     });
+};
 
-    fetch('https://otvetoved.ru/api/v1/authentication', {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username,
-        password,
-      }),
-    })
-    .then(data => {
-      const token = data.session_token;
-      localStorage.setItem('sessionToken', token);
-     // setSessionToken(token);
-    //  alert('Вы успешно вошли!');
-    })
-  };
+
+    // fetch('https://otvetoved.ru/api/v1/authentication', {
+    //   method: 'POST',
+    //   mode: 'cors',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     username,
+    //     password,
+    //   }),
+    // })
+    // .then(response => {
+    //   if (response.ok) {
+    //     return response.json();
+    //   } else {
+    //     return response.json().then(error => Promise.reject(error));
+    //   }
+    // })
+    // .then(data => {
+    //   const token = data.session_token;
+    //   localStorage.setItem('sessionToken', token);
+    //  // setSessionToken(token);
+    // //  alert('Вы успешно вошли!');
+    // })
   
 
   return (
