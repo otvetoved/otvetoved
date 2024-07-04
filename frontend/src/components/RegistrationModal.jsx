@@ -68,6 +68,12 @@ const RegistrationModal = ({ onClose, onLoginClick }) => {
         password,
       }),
     })
+    .then(data => {
+      const token = data.session_token;
+      localStorage.setItem('sessionToken', token);
+     // setSessionToken(token);
+    //  alert('Вы успешно вошли!');
+    })
   };
   
 
