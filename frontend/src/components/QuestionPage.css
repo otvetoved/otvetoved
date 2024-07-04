@@ -165,3 +165,8 @@
 .h2-answers,.h2-question{
   overflow-wrap: break-word;
 }
+
+.limit{
+  color: #ffb60c;
+  padding:15px
+}

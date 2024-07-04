@@ -12,6 +12,7 @@ const QuestionPage = () => {
   const [newAnswer, setNewAnswer] = useState('');
   const sessionToken = localStorage.getItem('sessionToken');
 
+  const MAX_TEXT_LENGTH = 15000;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -199,7 +200,9 @@ const QuestionPage = () => {
             className="response-textarea"
             value={newAnswer}
             onChange={(e) => setNewAnswer(e.target.value)}
+            maxLength={MAX_TEXT_LENGTH}
           ></textarea>
+           <small className="limit">{newAnswer.length}/{MAX_TEXT_LENGTH}</small>
           <button className="submit-btn" type="submit">Отправить</button>
         </div>
       </form>

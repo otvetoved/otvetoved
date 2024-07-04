@@ -147,3 +147,12 @@
     display: none;
   }
   
+  
+  .limit{
+    color: #ffb60c;
+    padding-left: 10px;
+  }
+
+  .invalid-limit{
+    color: #ff0c0c;
+  }

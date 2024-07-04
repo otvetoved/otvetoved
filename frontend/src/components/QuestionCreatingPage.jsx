@@ -7,6 +7,9 @@ const QuestionCreatingPage = ({ onClose }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const sessionToken = localStorage.getItem('sessionToken');
 
+  
+  const MAX_BRIEF_LENGTH = 200;
+  const MAX_TEXT_LENGTH = 5000;
 
   const handlePublication = () => {
     if (!brief.trim()) {
@@ -14,10 +17,10 @@ const QuestionCreatingPage = ({ onClose }) => {
       return;
     }
 
-    if (!text.trim()) {
-      alert('Введите описание вопроса.');
-      return;
-    }
+    // if (!text.trim()) {
+    //   alert('Введите описание вопроса.');
+    //   return;
+    // }
 
     const data = {
       brief,
@@ -47,6 +50,7 @@ const QuestionCreatingPage = ({ onClose }) => {
   };
 
 
+  
   return (
     <div className="question-modal">
       <div className="question-content">
@@ -57,13 +61,22 @@ const QuestionCreatingPage = ({ onClose }) => {
           handlePublication(); 
         }}>
           <p className="question-p">Заголовок</p>
-          <input type="text" className="question-input" value={brief} onChange={(e) => setBrief(e.target.value)} />
+          <input
+            type="text"
+            className="question-input"
+            value={brief}
+            onChange={(e) => setBrief(e.target.value)}
+            maxLength={MAX_BRIEF_LENGTH}
+          />
+          <small className="limit">{brief.length}/{MAX_BRIEF_LENGTH}</small>
           <p className="question-p">Текст вопроса</p>
           <textarea
             className="question-textarea"
             value={text}
             onChange={(e) => setText(e.target.value)}
+            maxLength={MAX_TEXT_LENGTH}
           ></textarea>
+          <small className="limit">{text.length}/{MAX_TEXT_LENGTH}</small>
           <button type="submit" className="question-button">Опубликовать</button>
         </form>
       </div>
