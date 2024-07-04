@@ -52,7 +52,7 @@ QuestionText = Annotated[str | None, Field(
     description=
     "Текст вопроса.  Может быть опущен, если краткое содержание вопроса"
     " содержит достаточно информации о вопросе.",
-    max_length=15000
+    max_length=5000
 )]
 
 QuestionId = Annotated[int, Field(
@@ -107,7 +107,7 @@ AnswerText = Annotated[str, Field(
     "Текст ответа",
     description=
     "Текст, который содержит в себе ответ на вопрос",
-    max_length=15000
+    max_length=5000
 )]
 
 Timestamp = Annotated[datetime, PlainSerializer(
