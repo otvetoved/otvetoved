@@ -56,6 +56,18 @@ const RegistrationModal = ({ onClose, onLoginClick }) => {
         alert('Произошла ошибка регистрации. Пожалуйста, попробуйте позже.');
       }
     });
+
+    fetch('https://otvetoved.ru/api/v1/authentication', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    })
   };
   
 
