@@ -2,8 +2,22 @@ from datetime import datetime
 from typing import Annotated
 
 from pydantic import Field, ConfigDict, UUID4, PlainSerializer
+from pydantic.functional_validators import BeforeValidator
 
 from otvetoved_core.infrastructure.dto import BaseDTO
+
+
+def action_check(action: str):
+    actions = {
+        "like": True,
+        "dislike": False,
+    }
+
+    try:
+        return actions[action.lower()]
+    except KeyError:
+        assert f"Action {action} invalid"
+
 
 Username = Annotated[str, Field(
     title=
@@ -116,6 +130,22 @@ UserEmail = Annotated[str, Field(
     ]
 )]
 
+Dislikes = Annotated[int, Field(
+    title="Количество дизлайков"
+)]
+
+Likes = Annotated[int, Field(
+    title="Количество лайков"
+)]
+
+RatingAction = Annotated[bool, BeforeValidator(action_check), Field(
+    title="Действие like/dislike",
+    examples=[
+        "like",
+        "dislike",
+    ]
+)]
+
 
 class UserDTO(BaseDTO):
     username: Username
@@ -203,3 +233,18 @@ class CreateQuestionAnswerDTO(BaseDTO):
 
     text: AnswerText
     session_token: SessionToken
+
+
+class QuestionAnswerRatingDTO(BaseDTO):
+    """ Рейтинг ответа """
+
+    id: AnswerID
+    dislikes: Dislikes
+    likes: Likes
+
+
+class AnswerRatingActionDTO(BaseDTO):
+    """ Изменение рейтинга ответа """
+
+    session_token: SessionToken
+    action: RatingAction

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections import Counter
 from datetime import datetime
 
 from sqlalchemy import ForeignKey
@@ -29,6 +30,16 @@ class Question(BaseRelationalEntity):
     answers: Mapped[list[QuestionAnswer]] = relationship(lazy='selectin')
 
 
+class UserAction(BaseRelationalEntity):
+    __tablename__ = 'user_answer'
+
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
+    answer_id: Mapped[int] = mapped_column(ForeignKey("question_answer.id"))
+    action: Mapped[bool]
+    created_at: Mapped[datetime] = mapped_column(default=datetime.now)
+
+
 class QuestionAnswer(BaseRelationalEntity):
     __tablename__ = 'question_answer'
 
@@ -37,5 +48,14 @@ class QuestionAnswer(BaseRelationalEntity):
     created_by_user_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
     text: Mapped[str]
     created_at: Mapped[datetime] = mapped_column(default=datetime.now)
+    rating: Mapped[list[UserAction]] = relationship(lazy="selectin")
 
     created_by_user: Mapped[User] = relationship(lazy='selectin')
+
+    @property
+    def likes(self):
+        return Counter(i.action for i in self.rating)[True]
+
+    @property
+    def dislikes(self):
+        return Counter(i.action for i in self.rating)[False]
