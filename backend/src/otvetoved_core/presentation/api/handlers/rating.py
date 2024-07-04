@@ -67,7 +67,8 @@ async def change_answer_rating(
             }
         )
 
-    stmt = select(UserAction).where(UserAction.user_id == user_session.user_id and UserAction.answer_id == answer_id)
+    stmt = select(UserAction).where(UserAction.user_id == user_session.user_id). \
+        where(UserAction.answer_id == answer_id)
     rates = await session.scalars(stmt)
     rate = rates.one_or_none()
 
