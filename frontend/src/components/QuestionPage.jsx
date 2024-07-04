@@ -85,41 +85,36 @@ const QuestionPage = () => {
     }
   };
 
-//   const handleLike = async (id, type, action) => {
-//     try {
-//       let url;
+  const handleLike = async (id, action) => {
+    try {
+      const questionId = question.id;
+      url = `https://otvetoved.ru/api//v1/questions/${questionId}/answers/${id}/${action}`;
+
+      const response = await fetch(`${url}`, {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${sessionToken}`,
+          'Content-Type': 'application/json',
+        },
+      });
   
-//       if (type === 'questions') {
-//         url = `/v1/questions/${id}/${action}`;
-//       } else if (type === 'answers') {
-//         const questionId = question.id;
-//         url = `/v1/questions/${questionId}/answers/${id}/${action}`;
-//       }
-  
-//       const response = await fetch(url, {
-//         method: 'PUT',
-//       });
-  
-//       if (response.ok) {
-//         const updatedData = await response.json();
-//         if (type === 'questions') {
-//           setQuestion({ ...question, likes: updatedData.likes, dislikes: updatedData.dislikes });
-//         } else {
-//           const updatedAnswers = answers.map(answer => {
-//             if (answer.id === id) {
-//               return { ...answer, likes: updatedData.likes, dislikes: updatedData.dislikes };
-//             }
-//             return answer;
-//           });
-//           setAnswers(updatedAnswers);
-//         }
-//       } else {
-//         console.error(`Failed to update ${type} ${id}: ${response.statusText}`);
-//       }
-//     } catch (error) {
-//       console.error(`Failed to update ${type} ${id}: ${error}`);
-//     }
-//   };
+      if (response.ok) {
+        const updatedData = await response.json();
+        const updatedAnswers = answers.map(answer => {
+          if (answer.id === id) {
+            return { ...answer, likes: updatedData.likes, dislikes: updatedData.dislikes };
+          }
+          return answer;
+        });
+        setAnswers(updatedAnswers);
+      } 
+      else {
+        console.error(`Failed to update ${id}: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error(`Failed to update  ${id}: ${error}`);
+    }
+  };
   
   return (
     <div className="question-page">
@@ -144,12 +139,6 @@ const QuestionPage = () => {
             <div className="question-info">
               <div className="question-text">{question.text}</div>
             </div>
-            <div className="question-actions">
-            {/* <button onClick={() => handleLike(question.id, 'questions', 'like')} className="like-btn">👍 Лайк {question.likes}</button>
-            <button onClick={() => handleLike(question.id, 'questions', 'dislike')} className="dislike-btn">👎 Дизлайк {question.dislikes}</button> */}
-             {/* <button className="like-btn">👍 Лайк</button>
-             <button className="dislike-btn">👎 Дизлайк</button> */}
-          </div>
           </div>
         </>
       )}
@@ -178,10 +167,10 @@ const QuestionPage = () => {
                 </div>
               </div>
               <div className="answer-actions">
-              {/* <button onClick={() => handleLike(answer.id, 'answers', 'like')} className="like-btn">👍 Лайк {answer.likes}</button>
-                <button onClick={() => handleLike(answer.id, 'answers', 'dislike')} className="dislike-btn">👎 Дизлайк {answer.dislikes}</button> */}
-               <button className="like-btn">👍 Лайк</button>
-               <button className="dislike-btn">👎 Дизлайк</button>               
+              <button onClick={() => handleLike(answer.id, 'like')} className="like-btn">👍 Лайк {answer.likes}</button>
+                <button onClick={() => handleLike(answer.id, 'dislike')} className="dislike-btn">👎 Дизлайк {answer.dislikes}</button>
+               {/* <button className="like-btn">👍 Лайк</button>
+               <button className="dislike-btn">👎 Дизлайк</button>                */}
               </div>
             </div>
           ))}
