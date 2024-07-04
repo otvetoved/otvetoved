@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import bcrypt
 from dishka.integrations.fastapi import inject, FromDishka
 from fastapi import APIRouter, HTTPException
@@ -22,6 +24,15 @@ router = APIRouter(prefix="/authentication", tags=["auth"])
     status_code=201,
     response_model=UserRegisterResponse,
     name="Зарегистрироваться",
+    responses={
+        403: {
+            "content": {
+                "application/json": {
+                    "example": {"detail": "User with this username already exists"}
+                }
+            },
+        }
+    },
 )
 @inject
 async def create_new_account(
@@ -49,6 +60,15 @@ async def create_new_account(
     "",
     response_model=AuthResponseDTO,
     name="Создать сессию входа в систему",
+    responses={
+        401: {
+            "content": {
+                "application/json": {
+                    "example": {"detail": "Invalid password or username"}
+                }
+            },
+        }
+    },
 )
 @inject
 async def create_new_session(
@@ -86,6 +106,22 @@ async def create_new_session(
     "/me",
     name="Получение информации о пользователе по session_token",
     response_model=UserDTO,
+    responses={
+        401: {
+            "content": {
+                "application/json": {
+                    "example": {"detail": "Session not found"}
+                }
+            },
+        },
+        419: {
+            "content": {
+                "application/json": {
+                    "example": {"detail": "Session expired"}
+                }
+            }
+        }
+    },
 )
 @inject
 async def get_user_by_session(
@@ -96,6 +132,11 @@ async def get_user_by_session(
     sessions = await session.scalars(stmt)
     user_session: UserSession = sessions.one_or_none()
     if not user_session:
-        raise HTTPException(404, "Session not found")
+        raise HTTPException(404, detail="Session not found")
+    if (datetime.now() - user_session.created_at).days >= 5:
+        await session.delete(user_session)
+        await session.flush()
+        await session.commit()
+        raise HTTPException(419, detail="Session expired")
     user = user_session.user
     return UserDTO.model_validate(user)
