@@ -20,6 +20,15 @@ router = APIRouter(prefix="/questions", tags=["questions"])
     status_code=201,
     response_model=QuestionDTO,
     name="Создать новый вопрос",
+    responses={
+        404: {
+            "content": {
+                "application/json": {
+                    "example": {"detail": "Session with token TOKEN not found"}
+                }
+            },
+        }
+    },
 )
 @inject
 async def create_question(
@@ -65,6 +74,15 @@ async def get_questions_list(
     "/{question_id}",
     response_model=QuestionFullInfoDTO,
     name="Получить конкретный вопрос по id",
+    responses={
+        404: {
+            "content": {
+                "application/json": {
+                    "example": {"detail": "Question with this is not found"}
+                }
+            },
+        }
+    },
 )
 @inject
 async def get_question(

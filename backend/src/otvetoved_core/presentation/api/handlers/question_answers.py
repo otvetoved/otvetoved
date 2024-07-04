@@ -16,6 +16,15 @@ router = APIRouter(prefix="/questions/{question_id}/answers", tags=["answers"])
     status_code=201,
     response_model=QuestionAnswerResponse,
     name="Оставить ответ на вопрос",
+    responses={
+        404: {
+            "content": {
+                "application/json": {
+                    "example": {"detail": "Session with token TOKEN not found"}
+                }
+            },
+        }
+    },
 )
 @inject
 async def leave_answer(
