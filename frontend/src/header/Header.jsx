@@ -22,6 +22,7 @@ export default function Header() {
             return response.json();
           } else {
             if (response.status === 419) {
+              alert("Сессия истекла. Войдите заново")
               throw new Error('Authentication timeout');
             } else {
               throw new Error('Failed to fetch user information');
