@@ -135,29 +135,36 @@ const QuestionPage = () => {
   
   return (
     <div className="question-page">
-      {question && (
-        <>
-          <h2 className="h2-question">Вопрос: {question.brief}</h2>
-          <div className="date-question">{
+    {question && question.brief && ( 
+      <>
+        <h2 className="h2-question">Вопрос: {question.brief}</h2>
+        {question.text.length > 0 && (
+          <>
+            <div className="date-question">
+              {
                 new Intl.DateTimeFormat("ru-RU", {
                   year: "numeric",
                   month: "2-digit",
                   day: "2-digit",
                   hour: "2-digit",
                   minute: "2-digit"
-                }).format(question.created_at*1000)
-              }</div>
-          <div className="author-info">
-            <div className="profile">
-              <img className="user-question" src={user} alt="Аватарка" />
-              <div className="author-name">{question.created_by_user.username}</div>
+                }).format(question.created_at * 1000)
+              }
             </div>
-            <div className="question-info">
-              <div className="question-text">{question.text}</div>
+
+            <div className="author-info">
+              <div className="profile">
+                <img className="user-question" src={user} alt="Аватарка" />
+                <div className="author-name">{question.created_by_user.username}</div>
+              </div>
+              <div className="question-info">
+                <div className="question-text">{question.text}</div>
+              </div>
             </div>
-          </div>
-        </>
-      )}
+          </>
+        )}
+      </>
+    )}
           <h2 className="h2-answers">Ответы</h2>
       {answers.length > 0 && (
         <div className="answers">
