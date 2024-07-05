@@ -138,8 +138,6 @@ const QuestionPage = () => {
     {question && question.brief && ( 
       <>
         <h2 className="h2-question">Вопрос: {question.brief}</h2>
-        {question.text.length > 0 && (
-          <>
             <div className="date-question">
               {
                 new Intl.DateTimeFormat("ru-RU", {
@@ -151,6 +149,11 @@ const QuestionPage = () => {
                 }).format(question.created_at * 1000)
               }
             </div>
+            {question.text.length === 0 && ( 
+            <div className="author">Автор: {question.created_by_user.username}</div>
+          )}
+        {question.text.length > 0 && (
+          <>
 
             <div className="author-info">
               <div className="profile">
