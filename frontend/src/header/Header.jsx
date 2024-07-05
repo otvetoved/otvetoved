@@ -21,18 +21,27 @@ export default function Header() {
           if (response.ok) {
             return response.json();
           } else {
-            throw new Error('Failed to fetch user information');
+            if (response.status === 419) {
+              throw new Error('Authentication timeout');
+            } else {
+              throw new Error('Failed to fetch user information');
+            }
           }
         })
         .then(data => {
           setUsername(data.username);
-          console.log('Имя пользователя:', data.username);
+          console.log('User Name:', data.username);
         })
         .catch(error => {
-          console.error('Ошибка получения имени пользователя:', error);
+          if (error.message === 'Authentication timeout') {
+            console.error('Authentication timeout. Redirecting to login page...');
+          } else {
+            console.error('Failed to fetch user information:', error);
+          }
         });
     }
   }, [sessionToken]);
+  
 
   const handleExit = () => {
     fetch('https://otvetoved.ru/api/v1/authentication/close_session?session_token=' + sessionToken, {
