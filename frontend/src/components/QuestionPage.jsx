@@ -39,11 +39,26 @@ const QuestionPage = () => {
             }
           );
         const answersData = await answersResponse.json();
-        console.log(answersData);
-        setAnswers(answersData);
+        const updatedAnswersData = await Promise.all(answersData.map(async (answer) => {
+          const ratingResponse = await fetch(
+              `https://otvetoved.ru/api/v1/answers/${answer.id}/rating`,
+              {
+                  headers: {
+                      Authorization: `Bearer ${sessionToken}`
+                  }
+              }
+          );
+          const ratingData = await ratingResponse.json();
+          return { ...answer, likes: ratingData.likes, dislikes: ratingData.dislikes };
+      }));
+      
+      setAnswers(updatedAnswersData);
+
+        
       } catch (error) {
         console.error('Failed to fetch question and answers:', error);
       }
+      
     };
 
     fetchData();
@@ -87,17 +102,18 @@ const QuestionPage = () => {
 
   const handleLike = async (id, action) => {
     try {
-      const questionId = question.id;
-      url = `https://otvetoved.ru/api//v1/questions/${questionId}/answers/${id}/${action}`;
-
-      const response = await fetch(`${url}`, {
+      const response = await fetch(`https://otvetoved.ru/api/v1/answers/${id}/rating`, {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${sessionToken}`,
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify({
+          action: action,
+          session_token: sessionToken
+        }),
       });
-  
+
       if (response.ok) {
         const updatedData = await response.json();
         const updatedAnswers = answers.map(answer => {
@@ -107,14 +123,15 @@ const QuestionPage = () => {
           return answer;
         });
         setAnswers(updatedAnswers);
-      } 
-      else {
+      } else {
         console.error(`Failed to update ${id}: ${response.statusText}`);
       }
     } catch (error) {
-      console.error(`Failed to update  ${id}: ${error}`);
+      console.error(`Failed to update ${id}: ${error}`);
     }
-  };
+};
+
+  
   
   return (
     <div className="question-page">
