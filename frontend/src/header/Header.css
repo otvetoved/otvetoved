@@ -52,3 +52,13 @@ h1{
     margin-right: 40%;
     margin-left: 10%;
 }
+
+.exit{
+    width: 50px;
+    height: 35px;
+    color: #FFFFFF;
+    background-color:#162F46;
+    padding: 10px;
+    padding-left: 30px !important;
+    padding-top: 18px !important;
+}

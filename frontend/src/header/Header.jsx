@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'; 
 import './Header.css';
 import userLogo from '../assets/user.png';
+import exit from '../assets/exit.png';
 import AuthenticationModal from '../components/AuthenticationModal.jsx';
 import RegistrationModal from '../components/RegistrationModal.jsx';
 import {Link} from "react-router-dom";
@@ -11,6 +12,7 @@ export default function Header() {
   const [showRegister, setShowRegister] = useState(false);
   const [username, setUsername] = useState('');
   const sessionToken = localStorage.getItem('sessionToken');
+  const isLoggedIn = sessionToken !== null;
 
   useEffect(() => {
     if (sessionToken) {
@@ -32,7 +34,11 @@ export default function Header() {
     }
   }, [sessionToken]);
 
-  
+  const handleExit = () => {
+
+  };
+
+
   return (
     <div className='header'>
         <Link to="/" className="linkSiteName">
@@ -41,6 +47,11 @@ export default function Header() {
         <div className='user'>
         <h1 className='userText'>{username || 'Войдитe'}</h1>
                 <img onClick={() => setShowLogin(true)} src={userLogo} className="userLogo" alt="Profile" />
+                {isLoggedIn && (
+          <>
+            <img onClick={handleExit} src={exit} className="exit" alt="Exit" />
+          </>
+        )}
         {showLogin && <AuthenticationModal onClose={() => setShowLogin(false)} onRegisterClick={() => {
           setShowLogin(false);
           setShowRegister(true);

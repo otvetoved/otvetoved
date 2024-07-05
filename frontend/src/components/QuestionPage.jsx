@@ -12,7 +12,7 @@ const QuestionPage = () => {
   const [newAnswer, setNewAnswer] = useState('');
   const sessionToken = localStorage.getItem('sessionToken');
 
-  const MAX_TEXT_LENGTH = 15000;
+  const MAX_TEXT_LENGTH = 5000;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -172,7 +172,7 @@ const QuestionPage = () => {
                   hour: "2-digit",
                   minute: "2-digit",
                   second: "2-digit",
-                }).format(question.created_at*1000)
+                }).format(answer.created_at*1000)
               }</div>
               <div className="author-info">
                 <div className="profile">
