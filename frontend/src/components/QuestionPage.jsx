@@ -144,8 +144,7 @@ const QuestionPage = () => {
                   month: "2-digit",
                   day: "2-digit",
                   hour: "2-digit",
-                  minute: "2-digit",
-                  second: "2-digit",
+                  minute: "2-digit"
                 }).format(question.created_at*1000)
               }</div>
           <div className="author-info">

@@ -35,8 +35,24 @@ export default function Header() {
   }, [sessionToken]);
 
   const handleExit = () => {
-
+    fetch('https://otvetoved.ru/api/v1/authentication/close_session?session_token=' + sessionToken, {
+      method: 'DELETE'
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Failed to fetch close session');
+      }
+    })
+    .then(data => {
+      localStorage.removeItem('sessionToken'); 
+    })
+    .catch(error => {
+      console.error('Ошибка при закрытии сессии:', error);
+    });
   };
+  
 
 
   return (
