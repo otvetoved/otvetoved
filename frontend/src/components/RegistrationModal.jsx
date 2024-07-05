@@ -21,8 +21,13 @@ const RegistrationModal = ({ onClose, onLoginClick }) => {
       return;
     }
 
-    if (!email.trim()) {
-      alert("Введите почту.");
+    if (username.length > 20) {
+      alert('Имя пользователя слишком длинное.');
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      alert('Введите корректный адрес почты.');
       return;
     }
 
@@ -81,32 +86,6 @@ const RegistrationModal = ({ onClose, onLoginClick }) => {
         }
     });
 };
-
-
-    // fetch('https://otvetoved.ru/api/v1/authentication', {
-    //   method: 'POST',
-    //   mode: 'cors',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     username,
-    //     password,
-    //   }),
-    // })
-    // .then(response => {
-    //   if (response.ok) {
-    //     return response.json();
-    //   } else {
-    //     return response.json().then(error => Promise.reject(error));
-    //   }
-    // })
-    // .then(data => {
-    //   const token = data.session_token;
-    //   localStorage.setItem('sessionToken', token);
-    //  // setSessionToken(token);
-    // //  alert('Вы успешно вошли!');
-    // })
   
 
   return (
