@@ -73,7 +73,16 @@ async def change_answer_rating(
     rate = rates.one_or_none()
 
     if rate and rate.action == payload.action:
-        raise HTTPException(403, detail="User already voted")
+        # raise HTTPException(403, detail="User already voted")
+        # Дальше идёт костыль, реализованный за пару часов до презентации продукта
+        # TODO: исправить костыль
+        await session.delete(rate)
+        await session.flush()
+        await session.commit()
+
+        await session.refresh(answer)
+        return QuestionAnswerRatingDTO.model_validate(answer)
+
     elif rate and rate.action != payload.action:
         await session.delete(rate)
         await session.flush()
@@ -116,4 +125,6 @@ async def get_answer_rating(
 ):
     stmt = select(QuestionAnswer).where(QuestionAnswer.id == answer_id)
     answer = (await session.scalars(stmt)).one_or_none()
+    if not answer:
+        raise HTTPException(404, "Question not found")
     return QuestionAnswerRatingDTO.model_validate(answer)

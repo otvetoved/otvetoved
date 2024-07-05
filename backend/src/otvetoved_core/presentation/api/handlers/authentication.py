@@ -3,6 +3,7 @@ from datetime import datetime
 import bcrypt
 from dishka.integrations.fastapi import inject, FromDishka
 from fastapi import APIRouter, HTTPException
+from fastapi.responses import JSONResponse
 from pydantic import UUID4
 from sqlalchemy import select, ScalarResult
 
@@ -15,8 +16,7 @@ from otvetoved_core.presentation.api.schemas.schemas import AuthResponseDTO, Aut
 router = APIRouter(prefix="/authentication", tags=["auth"])
 
 
-# TODO: сделать так, чтобы было всего 5 сессий на пользователя и у них
-#  было время жизни
+# TODO: сделать так, чтобы было всего 5 сессий на пользователя
 
 
 @router.post(
@@ -140,3 +140,28 @@ async def get_user_by_session(
         raise HTTPException(419, detail="Session expired")
     user = user_session.user
     return UserDTO.model_validate(user)
+
+
+@router.delete(
+    "/close_session",
+    status_code=200,
+    name="Закрыть сессию",
+)
+@inject
+async def close_session(
+        session_token: UUID4,
+        session: FromDishka[DatabaseSession],
+):
+    stmt = select(UserSession).where(UserSession.session_token == session_token)
+    user_session = (await session.scalars(stmt)).one_or_none()
+    if not user_session:
+        raise HTTPException(404, f"Session {session_token} not found")
+    await session.delete(user_session)
+    await session.flush()
+    await session.commit()
+    return JSONResponse(
+        status_code=200,
+        content={
+            "detail": f"Session {session_token} closed",
+        }
+    )
