@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './styles/App.css'
 import QuestionsList from './QuestionsList'
 import QuestionCreatingPage from './components/QuestionCreatingPage'
+import {Helmet} from 'react-helmet'
+import arrow from './assets/arrow.png'
 
 function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,6 +24,15 @@ function Home() {
 
   return (
     <>
+
+    <Helmet>
+      <title>Ответовед</title>
+      <meta name="description" content="Ответовед место для вопросов"/>
+      <meta property="og:title" content="Ответовед.ру"/>
+      <meta property="og:description" content="Задайте вопрос и получите ответ от пользователей!"/>
+      <meta property="og:image" content={arrow}/>
+    </Helmet>
+
       <div className='body'>
         {isUserAuthenticated ? (
           <button className='createQuestion' onClick={openModal}>

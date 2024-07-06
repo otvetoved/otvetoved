@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './QuestionPage.css';
 import user from './../assets/default-user.png';
 import {useParams} from "react-router-dom";
+import {Helmet} from 'react-helmet'
+import arrow from '../assets/arrow.png'
 
 
 const QuestionPage = () => {
@@ -134,7 +136,17 @@ const QuestionPage = () => {
   
   
   return (
+
+    
     <div className="question-page">
+<Helmet>
+  <title>Ответовед</title>
+  <meta name="description" content="Ответовед место для вопросов"/>
+  <meta property="og:title" content={question?.brief || 'Тест'}/>
+  <meta property="og:description" content={question?.text || 'Тест'}/>
+  <meta property="og:image" content={arrow}/>
+</Helmet>
+
     {question && question.brief && ( 
       <>
         <h2 className="h2-question">Вопрос: {question.brief}</h2>
