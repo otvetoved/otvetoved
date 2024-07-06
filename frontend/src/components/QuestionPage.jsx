@@ -145,6 +145,10 @@ const QuestionPage = () => {
   <meta property="og:title" content={question?.brief || 'Заголовок'}/>
   <meta property="og:description" content={question?.text || 'Описание'}/>
   <meta property="og:image" content={preview}/>
+  <meta property="og:site_name" content="Ответовед"/>
+  <meta property="og:url" content='https://otvetoved.ru/questions'/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:image_type" content="image/png"/>
 </Helmet>
 
     {question && question.brief && ( 
