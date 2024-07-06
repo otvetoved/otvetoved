@@ -3,7 +3,7 @@ import './styles/App.css'
 import QuestionsList from './QuestionsList'
 import QuestionCreatingPage from './components/QuestionCreatingPage'
 import {Helmet} from 'react-helmet'
-import arrow from './assets/arrow.png'
+import preview from './assets/preview.png'
 
 function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,7 +30,7 @@ function Home() {
       <meta name="description" content="Ответовед место для вопросов"/>
       <meta property="og:title" content="Ответовед.ру"/>
       <meta property="og:description" content="Задайте вопрос и получите ответ от пользователей!"/>
-      <meta property="og:image" content={arrow}/>
+      <meta property="og:image" content={preview}/>
     </Helmet>
 
       <div className='body'>

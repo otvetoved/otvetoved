@@ -3,7 +3,7 @@ import './QuestionPage.css';
 import user from './../assets/default-user.png';
 import {useParams} from "react-router-dom";
 import {Helmet} from 'react-helmet'
-import arrow from '../assets/arrow.png'
+import preview from './../assets/preview.png'
 
 
 const QuestionPage = () => {
@@ -142,9 +142,9 @@ const QuestionPage = () => {
 <Helmet>
   <title>Ответовед</title>
   <meta name="description" content="Ответовед место для вопросов"/>
-  <meta property="og:title" content={question?.brief || 'Тест'}/>
-  <meta property="og:description" content={question?.text || 'Тест'}/>
-  <meta property="og:image" content={arrow}/>
+  <meta property="og:title" content={question?.brief || 'Заголовок'}/>
+  <meta property="og:description" content={question?.text || 'Описание'}/>
+  <meta property="og:image" content={preview}/>
 </Helmet>
 
     {question && question.brief && ( 
