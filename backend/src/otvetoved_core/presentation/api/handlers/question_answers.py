@@ -5,7 +5,7 @@ from sqlalchemy import select
 from otvetoved_core.domain.models.question import QuestionAnswer
 from otvetoved_core.domain.models.user_session import UserSession
 from otvetoved_core.infrastructure.database import DatabaseSession
-from otvetoved_core.infrastructure.dto import BaseRootDTO, BaseRootSortedDTO
+from otvetoved_core.infrastructure.dto import BaseRootSortedDTO
 from otvetoved_core.presentation.api.schemas.schemas import CreateQuestionAnswerDTO, QuestionAnswerResponse
 
 router = APIRouter(prefix="/questions/{question_id}/answers", tags=["answers"])
