@@ -16,7 +16,7 @@ router = APIRouter(prefix="/answers/{answer_id}/rating", tags=["rating"])
 @router.put(
     "",
     status_code=200,
-    name="Проголосовать за вопрос",
+    name="Проголосовать за ответ на вопрос",
     response_model=QuestionAnswerRatingDTO,
     responses={
         404: {
@@ -104,7 +104,7 @@ async def change_answer_rating(
 
 @router.get(
     "",
-    name="Получить голоса за вопрос",
+    name="Получить голоса за ответ на вопрос",
     response_model=QuestionAnswerRatingDTO,
     responses={
         404: {

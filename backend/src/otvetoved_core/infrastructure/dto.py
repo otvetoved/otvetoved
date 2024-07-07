@@ -1,7 +1,7 @@
 from base64 import urlsafe_b64encode, urlsafe_b64decode
 from typing import Type
 
-from pydantic import BaseModel, ConfigDict, RootModel
+from pydantic import BaseModel, ConfigDict, RootModel, model_validator
 
 
 class PydanticDTOMixin:
@@ -22,4 +22,13 @@ class BaseDTO(BaseModel, PydanticDTOMixin):
 
 
 class BaseRootDTO(RootModel, PydanticDTOMixin):
+    pass
+
+
+class BaseRootSortedDTO(BaseRootDTO):
+    @model_validator(mode="after")
+    def validator(self):
+        self.root.sort()
+        self.root.reverse()
+        return self
     pass

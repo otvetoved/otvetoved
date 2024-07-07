@@ -1,4 +1,5 @@
 from datetime import datetime
+from functools import total_ordering
 from typing import Annotated
 
 from pydantic import Field, ConfigDict, UUID4, PlainSerializer
@@ -146,6 +147,10 @@ RatingAction = Annotated[bool, BeforeValidator(action_check), Field(
     ]
 )]
 
+TotalRating = Annotated[int, Field(
+    title="Разность лайков и дизлайков"
+)]
+
 
 class UserDTO(BaseDTO):
     username: Username
@@ -218,6 +223,7 @@ class UserRegisterForm(BaseDTO):
     email: UserEmail
 
 
+@total_ordering
 class QuestionAnswerResponse(BaseDTO):
     """ Данные созданного вопроса """
 
@@ -226,6 +232,10 @@ class QuestionAnswerResponse(BaseDTO):
     text: AnswerText
     created_by_user: UserDTO
     created_at: CreatedAt
+    total_rating: TotalRating
+
+    def __lt__(self, other):
+        return self.total_rating < other.total_rating
 
 
 class CreateQuestionAnswerDTO(BaseDTO):

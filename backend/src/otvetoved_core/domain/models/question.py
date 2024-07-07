@@ -59,3 +59,7 @@ class QuestionAnswer(BaseRelationalEntity):
     @property
     def dislikes(self):
         return Counter(i.action for i in self.rating)[False]
+
+    @property
+    def total_rating(self):
+        return self.likes - self.dislikes
