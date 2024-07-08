@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import RegistrationModal from './RegistrationModal.jsx';
+import { Toaster, toast } from 'react-hot-toast';
 import './Modal.css';
 
 
@@ -10,14 +11,14 @@ const AuthenticationModal = ({ onClose, onRegisterClick }) => {
   const [showRegistration, setShowRegistration] = useState(false);
 
   const handleLogin = () => {
-    
+
     if (!username.trim()) {
-      alert('Введите никнейм.');
+      toast.error('Введите никнейм.');
       return;
     }
 
     if (!password.trim()) {
-      alert('Введите пароль.');
+      toast.error('Введите пароль.');
       return;
     }
 
@@ -44,14 +45,14 @@ const AuthenticationModal = ({ onClose, onRegisterClick }) => {
         const token = data.session_token;
         localStorage.setItem('sessionToken', token);
         setSessionToken(token);
-        alert('Вы успешно вошли!');
+        toast.success('Вы успешно вошли!');
       })
       .catch(error => {
         console.error('Error occurred while logging in: ', error);
         if (error.detail) {
-          alert('Произошла ошибка входа: ' + error.detail);
+          toast.error('Произошла ошибка входа: ' + error.detail);
         } else {
-          alert('Произошла ошибка входа. Пожалуйста, попробуйте позже.');
+          toast.error('Произошла ошибка входа. Пожалуйста, попробуйте позже.');
         }
       });
   };

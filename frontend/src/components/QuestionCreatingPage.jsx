@@ -1,5 +1,6 @@
 import React, { useState} from 'react';
 import './Modal.css';
+import { toast } from 'react-hot-toast';
 
 const QuestionCreatingPage = ({ onClose }) => {
   const [brief, setBrief] = useState('');
@@ -13,7 +14,7 @@ const QuestionCreatingPage = ({ onClose }) => {
 
   const handlePublication = () => {
     if (!brief.trim()) {
-      alert('Введите заголовок вопроса.');
+      toast.error('Введите заголовок вопроса.');
       return;
     }
 
@@ -38,7 +39,7 @@ const QuestionCreatingPage = ({ onClose }) => {
       .then(response => {
         if (response.ok) {
           console.log('Question successfully submitted');
-          alert("Вопрос успешно создан!");
+          toast.success("Вопрос успешно создан!");
           onClose();
         } else {
           console.error('Failed to submit the question');

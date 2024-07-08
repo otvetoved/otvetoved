@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import AuthenticationModal from './AuthenticationModal.jsx'; 
+import { toast } from 'react-hot-toast';
 import './Modal.css'
 
 const RegistrationModal = ({ onClose, onLoginClick }) => {
@@ -12,22 +13,22 @@ const RegistrationModal = ({ onClose, onLoginClick }) => {
   const handleRegister = () => {
 
     if (!username.trim()) {
-      alert('Введите никнейм.');
+      toast.error('Введите никнейм.');
       return;
     }
 
     if (!password.trim()) {
-      alert('Введите пароль.');
+      toast.error('Введите пароль.');
       return;
     }
 
     if (username.length > 20) {
-      alert('Имя пользователя слишком длинное.');
+      toast.error('Имя пользователя слишком длинное.');
       return;
     }
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      alert('Введите корректный адрес почты.');
+      toast.error('Введите корректный адрес почты.');
       return;
     }
 
@@ -51,7 +52,7 @@ const RegistrationModal = ({ onClose, onLoginClick }) => {
         }
     })
     .then(data => {
-        alert(`Вы успешно зарегистрировались: ${data.username}`);
+        toast.success(`Вы успешно зарегистрировались: ${data.username}`);
         console.log('Sending data:', { username, password });
 
         return fetch('https://otvetoved.ru/api/v1/authentication', {
@@ -80,9 +81,9 @@ const RegistrationModal = ({ onClose, onLoginClick }) => {
     .catch(error => {
         console.error('Error occurred: ', error);
         if (error.detail) {
-            alert('Ошибка: ' + error.detail);
+            toast.error('Ошибка: ' + error.detail);
         } else {
-            alert('Произошла ошибка. Пожалуйста, попробуйте позже.');
+            toast.error('Произошла ошибка. Пожалуйста, попробуйте позже.');
         }
     });
 };

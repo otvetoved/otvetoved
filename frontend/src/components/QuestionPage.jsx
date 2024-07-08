@@ -4,6 +4,7 @@ import user from './../assets/default-user.png';
 import {useParams} from "react-router-dom";
 import {Helmet} from 'react-helmet'
 import preview from './../assets/preview.png'
+import { toast } from 'react-hot-toast';
 
 
 const QuestionPage = () => {
@@ -19,7 +20,6 @@ const QuestionPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-       // Нужно заменить {question_id} на конкретный ID, который мы будем откуда-то получать
        const questionResponse = await fetch(
         `https://otvetoved.ru/api/v1/questions/${question_id}`,
         {
@@ -31,7 +31,6 @@ const QuestionPage = () => {
         const questionData = await questionResponse.json();
         setQuestion(questionData);
 
-        //  Нужно заменить {question_id} на конкретный ID, который мы будем откуда-то получать
         const answersResponse = await fetch(
             `https://otvetoved.ru/api/v1/questions/${question_id}/answers`,
             {
@@ -72,12 +71,12 @@ const QuestionPage = () => {
     e.preventDefault();
 
     if (!newAnswer.trim()) {
-      alert('Введите ответ.');
+      toast.error('Введите ответ.');
       return;
     }
     
     try {
-      const response = await fetch(`https://otvetoved.ru/api/v1/questions/${question_id}/answers`, { //  Нужно заменить {question_id} на конкретный ID, который мы будем откуда-то получать
+      const response = await fetch(`https://otvetoved.ru/api/v1/questions/${question_id}/answers`, { 
         method: 'POST',
         headers: {
            Authorization: `Bearer ${sessionToken}`,            
@@ -86,7 +85,6 @@ const QuestionPage = () => {
         body: JSON.stringify({
           text: newAnswer,
           session_token: sessionToken
-          //created_by_user_id: 1, //  Нужно заменить {created_by_user_id} на конкретный ID, который мы будем получать после входа пользователя
         }),
       });
 
