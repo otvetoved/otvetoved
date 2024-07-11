@@ -26,6 +26,8 @@ def raw_rate_to_rate(rate: bool):
         False: "dislike",
     }
 
+    return rates[rate]
+
 
 Username = Annotated[str, Field(
     title=
