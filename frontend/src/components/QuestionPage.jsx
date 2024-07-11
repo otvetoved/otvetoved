@@ -5,6 +5,7 @@ import {useParams} from "react-router-dom";
 import {Helmet} from 'react-helmet'
 import preview from './../assets/preview.png'
 import { toast } from 'react-hot-toast';
+import userLogo from '../assets/user.png';
 
 
 const QuestionPage = () => {
@@ -169,39 +170,60 @@ const QuestionPage = () => {
   <meta property="og:image_type" content="image/png"/>
 </Helmet>
 
-    {question && question.brief && ( 
+{question && question.brief && ( 
+  <>
+    {question.text.length === 0 ? (
+      <>
+       <div className="date-question-var">
+        {
+          new Date(question.created_at * 1000).toLocaleString('ru-RU', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          })
+        }
+      </div>
+
+        <div className="h2-question-var">
+        <h2>Вопрос: {question.brief}</h2>
+        <div className="textAndLogo">
+        <p className="author-p">by {question.created_by_user.username}</p>
+        {/* <img src={userLogo} className="userLogo" alt="Profile" /> */}
+
+        </div>
+        
+
+        </div>
+      </>
+    ) : (
       <>
         <h2 className="h2-question">Вопрос: {question.brief}</h2>
-            <div className="date-question">
-              {
-                new Intl.DateTimeFormat("ru-RU", {
-                  year: "numeric",
-                  month: "2-digit",
-                  day: "2-digit",
-                  hour: "2-digit",
-                  minute: "2-digit"
-                }).format(question.created_at * 1000)
-              }
-            </div>
-            {question.text.length === 0 && ( 
-            <div className="author">Автор: {question.created_by_user.username}</div>
-          )}
-        {question.text.length > 0 && (
-          <>
-
-            <div className="author-info">
-              <div className="profile">
-                <img className="user-question" src={user} alt="Аватарка" />
-                <div className="author-name">{question.created_by_user.username}</div>
-              </div>
-              <div className="question-info">
-                <div className="question-text">{question.text}</div>
-              </div>
-            </div>
-          </>
-        )}
+        <div className="date-question">
+          {
+            new Intl.DateTimeFormat("ru-RU", {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+              hour: "2-digit",
+              minute: "2-digit"
+            }).format(question.created_at * 1000)
+          }
+        </div>
+        <div className="author-info">
+          <div className="profile">
+            <img className="user-question" src={user} alt="Аватарка" />
+            <div className="author-name">{question.created_by_user.username}</div>
+          </div>
+          <div className="question-info">
+            <div className="question-text">{question.text}</div>
+          </div>
+        </div>
       </>
     )}
+  </>
+)}
+
+
           <h2 className="h2-answers">Ответы</h2>
       {answers.length > 0 && (
         <div className="answers">

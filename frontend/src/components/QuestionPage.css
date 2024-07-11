@@ -208,3 +208,44 @@
   background-color: #f2f2f2;
   color: #ff0000; 
 }
+
+.h2-question-var{
+  overflow-wrap: break-word;
+  font-family: Montserrat-Bold ;
+  display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #162F46;
+    color: #FFC94F;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.author-p{
+  color: white !important;
+}
+
+.date-question-var{
+  background-color: #162F46;
+  color: #ffffff;
+  text-align: start;
+  padding-left: 15px !important;
+  padding: 8px;
+  font-family: Montserrat-Medium ;
+  text-align: center;
+  width: 200px;
+  max-width: 300px;
+
+}
+
+.userLogo{
+  width:56px;
+  height:56px;
+  margin-left: 10px;
+  margin-top: 7px !important;
+  cursor: pointer;
+}
+
+.textAndLogo{
+  display: inline;
+}
