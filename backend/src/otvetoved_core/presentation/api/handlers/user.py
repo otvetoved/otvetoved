@@ -1,17 +1,11 @@
-from datetime import datetime
-
-import bcrypt
 from dishka.integrations.fastapi import inject, FromDishka
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
 from fastapi.responses import JSONResponse
-from pydantic import UUID4
-from sqlalchemy import select, ScalarResult
+from sqlalchemy import select
 
 from otvetoved_core.domain.models.user import User
-from otvetoved_core.domain.models.user_session import UserSession
 from otvetoved_core.infrastructure.database import DatabaseSession
-from otvetoved_core.presentation.api.schemas.schemas import AuthResponseDTO, AuthDTO, UserRegisterResponse, \
-    UserRegisterForm, UserDTO, UserTotalRateDTO
+from otvetoved_core.presentation.api.schemas.schemas import UserTotalRateDTO
 
 router = APIRouter(prefix="/user/{user_id}", tags=["user"])
 
