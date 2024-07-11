@@ -47,7 +47,7 @@ async def leave_answer(
     session.add(answer)
     await session.flush()
     await session.commit()
-
+    await session.refresh(answer)
     return QuestionAnswerResponse.model_validate(answer)
 
 

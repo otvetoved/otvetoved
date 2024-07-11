@@ -1,14 +1,18 @@
 tags_metadata = [
     {
         "name": "auth",
-        "description": "Регистрация и аутентификация /api/v1/authentication",
+        "description": "Регистрация и аутентификация",
     },
     {
         "name": "questions",
-        "description": "Операции с вопросами /api/v1/questions",
+        "description": "Операции с вопросами",
     },
     {
         "name": "answers",
-        "description": "Операции с ответами /api/v1/questions/{question_id}/answers",
+        "description": "Операции с ответами на вопросы",
+    },
+    {
+        "name": "user",
+        "description": "Операции с пользователями",
     },
 ]

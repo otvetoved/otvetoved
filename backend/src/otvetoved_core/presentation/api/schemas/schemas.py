@@ -170,6 +170,10 @@ TotalRating = Annotated[int, Field(
     title="Разность лайков и дизлайков"
 )]
 
+UserRating = Annotated[float, Field(
+    title="Полезность пользователя"
+)]
+
 
 class UserDTO(BaseDTO):
     username: Username
@@ -283,3 +287,9 @@ class UserRateDTO(BaseDTO):
     """ Оценка текущего пользователя """
 
     action: Rate
+
+
+class UserTotalRateDTO(BaseDTO):
+    """ Полезность пользователя """
+
+    user_rating: UserRating
