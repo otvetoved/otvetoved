@@ -63,4 +63,6 @@ h1{
     background-color:#162F46;
     color: #FFC94F;
     font-size: 16px;
+    border-radius: 15px;
+    appearance: none;
 }
