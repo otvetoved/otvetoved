@@ -67,7 +67,9 @@ const QuestionPage = () => {
             }
           }
         );
-        return userActionsResponse.json();
+        const userActionData = await userActionsResponse.json(); 
+        const action = userActionData.action; 
+        return { answerId: answer.id, action }; 
       });
       
       const userActionsData = await Promise.all(userActionsPromises);
@@ -109,6 +111,7 @@ const QuestionPage = () => {
       if (response.ok) {
         const newAnswerData = await response.json();
         setAnswers([...answers, newAnswerData]);
+        toast.success('Спасибо за ваш ответ!');
         setNewAnswer('');
         setTimeout(() => {
           window.location.reload();
@@ -152,23 +155,28 @@ const QuestionPage = () => {
     }
 };
 
+function getActionByType(userActionsData, answerId, action) {
+  console.log(userActionsData);
+  console.log('Searching for action with answerId:', answerId, 'and action:', action);
+  const foundAction = userActionsData.find(item => item.answerId === answerId && item.action === action);
+  console.log('Found action:', foundAction);
+  return foundAction;
+}
   
   
   return (
-
-    
     <div className="question-page">
-<Helmet>
-  <title>Ответовед</title>
-  <meta name="description" content="Ответовед место для вопросов"/>
-  <meta property="og:title" content={question?.brief || 'Заголовок'}/>
-  <meta property="og:description" content={question?.text || 'Описание'}/>
-  <meta property="og:image" content={preview}/>
-  <meta property="og:site_name" content="Ответовед"/>
-  <meta property="og:url" content='https://otvetoved.ru/questions'/>
-  <meta property="og:type" content="website"/>
-  <meta property="og:image_type" content="image/png"/>
-</Helmet>
+    <Helmet>
+      <title>Ответовед</title>
+      <meta name="description" content="Ответовед место для вопросов"/>
+      <meta property="og:title" content={question?.brief || 'Заголовок'}/>
+      <meta property="og:description" content={question?.text || 'Описание'}/>
+      <meta property="og:image" content={preview}/>
+      <meta property="og:site_name" content="Ответовед"/>
+      <meta property="og:url" content='https://otvetoved.ru/questions'/>
+      <meta property="og:type" content="website"/>
+      <meta property="og:image_type" content="image/png"/>
+    </Helmet>
 
 {question && question.brief && ( 
   <>
@@ -248,12 +256,9 @@ const QuestionPage = () => {
                 </div>
               </div>
               <div className="answer-actions">
-              {userActionsData.map((answerr, index) => (
-                <div key={answer.id}>
-                  <button onClick={() => handleLike(answer.id, 'like')} className={`like-btn ${userActionsData[index].action === 'like' ? 'actioned' : ''}`}>👍 Лайк {answer.likes}</button>
-                  <button onClick={() => handleLike(answer.id, 'dislike')} className={`dislike-btn ${userActionsData[index].action === 'dislike' ? 'actioned' : ''}`}>👎 Дизлайк {answer.dislikes}</button>
-                </div>
-              ))}
+              <button onClick={() => handleLike(answer.id, 'like')} className={`like-btn ${getActionByType(userActionsData, answer.id, 'like') ? 'actioned' : ''}`}>👍 Лайк {answer.likes}</button>
+              <button onClick={() => handleLike(answer.id, 'dislike')} className={`dislike-btn ${getActionByType(userActionsData, answer.id, 'dislike') ? 'actioned' : ''}`}>👎 Дизлайк {answer.dislikes}</button>
+   
               </div>
             </div>
           ))}
