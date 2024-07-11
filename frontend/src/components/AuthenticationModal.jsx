@@ -46,6 +46,9 @@ const AuthenticationModal = ({ onClose, onRegisterClick }) => {
         localStorage.setItem('sessionToken', token);
         setSessionToken(token);
         toast.success('Вы успешно вошли!');
+        setTimeout(() => {
+          window.location.reload();
+      }, 2000); 
       })
       .catch(error => {
         console.error('Error occurred while logging in: ', error);

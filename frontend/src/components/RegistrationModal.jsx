@@ -77,6 +77,9 @@ const RegistrationModal = ({ onClose, onLoginClick }) => {
     .then(data => {
         const token = data.session_token;
         localStorage.setItem('sessionToken', token);
+        setTimeout(() => {
+          window.location.reload();
+      }, 2000); 
     })
     .catch(error => {
         console.error('Error occurred: ', error);

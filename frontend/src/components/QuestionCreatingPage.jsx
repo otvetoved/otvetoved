@@ -40,6 +40,9 @@ const QuestionCreatingPage = ({ onClose }) => {
         if (response.ok) {
           console.log('Question successfully submitted');
           toast.success("Вопрос успешно создан!");
+          setTimeout(() => {
+            window.location.reload();
+        }, 2000); 
           onClose();
         } else {
           console.error('Failed to submit the question');

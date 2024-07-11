@@ -92,6 +92,9 @@ const QuestionPage = () => {
         const newAnswerData = await response.json();
         setAnswers([...answers, newAnswerData]);
         setNewAnswer('');
+        setTimeout(() => {
+          window.location.reload();
+      }, 2000); 
       } else {
         console.error('Failed to submit answer:', response.statusText);
       }

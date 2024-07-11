@@ -57,6 +57,9 @@ export default function Header() {
     })
     .then(data => {
       localStorage.removeItem('sessionToken'); 
+      setTimeout(() => {
+        window.location.reload();
+    }, 2000); 
     })
     .catch(error => {
       console.error('Ошибка при закрытии сессии:', error);
@@ -75,7 +78,7 @@ export default function Header() {
                 <img onClick={() => setShowLogin(true)} src={userLogo} className="userLogo" alt="Profile" />
                 {isLoggedIn && (
           <>
-            <img onClick={handleExit} src={exit} className="exit" alt="Exit" />
+            <button type="button" onClick={handleExit} src={exit} className="exit" alt="Exit">Exit</button>
           </>
         )}
         {showLogin && <AuthenticationModal onClose={() => setShowLogin(false)} onRegisterClick={() => {

@@ -54,11 +54,13 @@ h1{
 }
 
 .exit{
-    width: 50px;
-    height: 35px;
+    margin-left: 100px;
+    position: relative;
+    top: 25%;
+    width: 100px;
+    height: 50%;
     color: #FFFFFF;
     background-color:#162F46;
-    padding: 10px;
-    padding-left: 30px !important;
-    padding-top: 18px !important;
+    color: #FFC94F;
+    font-size: 16px;
 }
