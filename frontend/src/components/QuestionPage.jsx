@@ -13,11 +13,14 @@ const QuestionPage = () => {
   const [question, setQuestion] = useState(null);
   const [answers, setAnswers] = useState([]);
   const [newAnswer, setNewAnswer] = useState('');
+  const [userActionsData, setUserActionsData] = useState([]);
   const sessionToken = localStorage.getItem('sessionToken');
 
   const MAX_TEXT_LENGTH = 5000;
 
   useEffect(() => {
+    let answersData = []
+    let answersActions = []
     const fetchData = async () => {
       try {
        const questionResponse = await fetch(
@@ -39,7 +42,7 @@ const QuestionPage = () => {
               }
             }
           );
-        const answersData = await answersResponse.json();
+         answersData = await answersResponse.json();
         const updatedAnswersData = await Promise.all(answersData.map(async (answer) => {
           const ratingResponse = await fetch(
               `https://otvetoved.ru/api/v1/answers/${answer.id}/rating`,
@@ -55,6 +58,20 @@ const QuestionPage = () => {
       
       setAnswers(updatedAnswersData);
 
+      const userActionsPromises = answersData.map(async (answer) => {
+        const userActionsResponse = await fetch(
+          `https://otvetoved.ru/api/v1/answers/${answer.id}/rating/me?session_token=` + sessionToken, {
+            headers: {
+              Authorization: `Bearer ${sessionToken}`
+            }
+          }
+        );
+        return userActionsResponse.json();
+      });
+      
+      const userActionsData = await Promise.all(userActionsPromises);
+      console.log(userActionsData);
+      setUserActionsData(userActionsData);
         
       } catch (error) {
         console.error('Failed to fetch question and answers:', error);
@@ -209,10 +226,12 @@ const QuestionPage = () => {
                 </div>
               </div>
               <div className="answer-actions">
-              <button onClick={() => handleLike(answer.id, 'like')} className="like-btn">👍 Лайк {answer.likes}</button>
-                <button onClick={() => handleLike(answer.id, 'dislike')} className="dislike-btn">👎 Дизлайк {answer.dislikes}</button>
-               {/* <button className="like-btn">👍 Лайк</button>
-               <button className="dislike-btn">👎 Дизлайк</button>                */}
+              {userActionsData.map((answerr, index) => (
+                <div key={answer.id}>
+                  <button onClick={() => handleLike(answer.id, 'like')} className={`like-btn ${userActionsData[index].action === 'like' ? 'actioned' : ''}`}>👍 Лайк {answer.likes}</button>
+                  <button onClick={() => handleLike(answer.id, 'dislike')} className={`dislike-btn ${userActionsData[index].action === 'dislike' ? 'actioned' : ''}`}>👎 Дизлайк {answer.dislikes}</button>
+                </div>
+              ))}
               </div>
             </div>
           ))}

@@ -202,3 +202,9 @@
   color: #555;
   text-transform: uppercase;
 }
+
+.like-btn.actioned,
+.dislike-btn.actioned {
+  background-color: #f2f2f2;
+  color: #ff0000; 
+}
