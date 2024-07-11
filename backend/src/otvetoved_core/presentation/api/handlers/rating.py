@@ -1,13 +1,14 @@
 from dishka.integrations.fastapi import inject, FromDishka
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import JSONResponse
+from pydantic import UUID4
 from sqlalchemy import select
 
 from otvetoved_core.domain.models import UserSession
 from otvetoved_core.domain.models.question import UserAction, QuestionAnswer
 from otvetoved_core.infrastructure.database import DatabaseSession
 from otvetoved_core.presentation.api.schemas.schemas import (
-    QuestionAnswerRatingDTO, AnswerRatingActionDTO,
+    QuestionAnswerRatingDTO, AnswerRatingActionDTO, UserRateDTO,
 )
 
 router = APIRouter(prefix="/answers/{answer_id}/rating", tags=["rating"])
@@ -121,6 +122,7 @@ async def change_answer_rating(
 @inject
 async def get_answer_rating(
         session: FromDishka[DatabaseSession],
+
         answer_id: int,
 ):
     stmt = select(QuestionAnswer).where(QuestionAnswer.id == answer_id)
@@ -128,3 +130,41 @@ async def get_answer_rating(
     if not answer:
         raise HTTPException(404, "Question not found")
     return QuestionAnswerRatingDTO.model_validate(answer)
+
+
+@router.get(
+    "/me",
+    name="Получить свой ответ",
+    status_code=200,
+    response_model=UserRateDTO,
+    responses={
+
+    }
+)
+@inject
+async def get_my_rate(
+        session_token: UUID4,
+        answer_id: int,
+        session: FromDishka[DatabaseSession],
+):
+    stmt = select(UserSession).where(UserSession.session_token == session_token)
+    user_session: UserSession = (await session.scalars(stmt)).one_or_none()
+    if not user_session:
+        return JSONResponse(
+            status_code=404,
+            content={
+                "detail": f"Session {session_token} not found",
+                "object": "session",
+            }
+        )
+    stmt = select(UserAction).where(UserAction.answer_id == answer_id).where(UserAction.user_id == user_session.user_id)
+    rate: QuestionAnswer = (await session.scalars(stmt)).one_or_none()
+    if not rate:
+        return JSONResponse(
+            status_code=404,
+            content={
+                "detail": f"Answer {answer_id} not found",
+                "object": "answer",
+            }
+        )
+    return UserRateDTO.model_validate(rate)

@@ -20,6 +20,13 @@ def action_check(action: str):
         assert f"Action {action} invalid"
 
 
+def raw_rate_to_rate(rate: bool):
+    rates = {
+        True: "like",
+        False: "dislike",
+    }
+
+
 Username = Annotated[str, Field(
     title=
     "Юзернейм пользователя.",
@@ -147,6 +154,16 @@ RatingAction = Annotated[bool, BeforeValidator(action_check), Field(
     ]
 )]
 
+RawRate = Annotated[bool, PlainSerializer(
+    raw_rate_to_rate,
+    return_type=str,
+    when_used="json",
+)]
+
+Rate = Annotated[RawRate, Field(
+    title="Оценка пользователя"
+)]
+
 TotalRating = Annotated[int, Field(
     title="Разность лайков и дизлайков"
 )]
@@ -258,3 +275,9 @@ class AnswerRatingActionDTO(BaseDTO):
 
     session_token: SessionToken
     action: RatingAction
+
+
+class UserRateDTO(BaseDTO):
+    """ Оценка текущего пользователя """
+
+    action: Rate
