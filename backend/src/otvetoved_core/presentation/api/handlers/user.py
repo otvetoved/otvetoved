@@ -37,6 +37,7 @@ async def get_total_rate(
     user: User = (await session.scalars(stmt)).one_or_none()
     if not user:
         return JSONResponse(
+            status_code=404,
             content={
                 "detail": f"User with id {user_id} not found",
                 "object": "user"
