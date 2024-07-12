@@ -1,14 +1,13 @@
 from __future__ import annotations
-from typing import TYPE_CHECKING
 
 from datetime import datetime
+from typing import TYPE_CHECKING
 
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from otvetoved_core.infrastructure.relational_entity import (
     BaseRelationalEntity,
 )
-
 
 if TYPE_CHECKING:
     from otvetoved_core.domain.models import QuestionAnswer, UserSession

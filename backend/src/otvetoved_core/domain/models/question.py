@@ -3,7 +3,7 @@ from __future__ import annotations
 from collections import Counter
 from datetime import datetime
 
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, ForeignKeyConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from otvetoved_core.domain.models.tag import (
@@ -32,13 +32,21 @@ class Question(BaseRelationalEntity):
     def __str__(self):
         return self.brief
 
+    __table_args__ = (
+        ForeignKeyConstraint(
+            ["created_by_user_id"],
+            ["user.id"],
+            ondelete="cascade"
+        ),
+    )
+
 
 class UserAction(BaseRelationalEntity):
     __tablename__ = 'user_answer'
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    user_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
-    answer_id: Mapped[int] = mapped_column(ForeignKey("question_answer.id"))
+    user_id: Mapped[int] = mapped_column(ForeignKey("user.id", ondelete="cascade"))
+    answer_id: Mapped[int] = mapped_column(ForeignKey("question_answer.id", ondelete="cascade"))
     action: Mapped[bool]
     created_at: Mapped[datetime] = mapped_column(default=datetime.now)
 
@@ -47,8 +55,8 @@ class QuestionAnswer(BaseRelationalEntity):
     __tablename__ = 'question_answer'
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    question_id: Mapped[int] = mapped_column(ForeignKey("question.id"))
-    created_by_user_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
+    question_id: Mapped[int] = mapped_column(ForeignKey("question.id", ondelete="cascade"))
+    created_by_user_id: Mapped[int] = mapped_column(ForeignKey("user.id", ondelete="cascade"))
     text: Mapped[str]
     created_at: Mapped[datetime] = mapped_column(default=datetime.now)
     rating: Mapped[list[UserAction]] = relationship(lazy="selectin")
