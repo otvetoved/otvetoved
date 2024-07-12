@@ -20,7 +20,7 @@ class Question(BaseRelationalEntity):
     __tablename__ = 'question'
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    created_by_user_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
+    created_by_user_id: Mapped[int] = mapped_column(ForeignKey("user.id"), ondelete="cascade")
     brief: Mapped[str]
     text: Mapped[str]
     created_at: Mapped[datetime] = mapped_column(default=datetime.now)
@@ -31,14 +31,6 @@ class Question(BaseRelationalEntity):
 
     def __str__(self):
         return self.brief
-
-    __table_args__ = (
-        ForeignKeyConstraint(
-            ["created_by_user_id"],
-            ["user.id"],
-            ondelete="cascade"
-        ),
-    )
 
 
 class UserAction(BaseRelationalEntity):
