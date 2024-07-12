@@ -16,10 +16,15 @@ const QuestionPage = () => {
   const [newAnswer, setNewAnswer] = useState('');
   const [userActionsData, setUserActionsData] = useState([]);
   const sessionToken = localStorage.getItem('sessionToken');
+  const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
 
   const MAX_TEXT_LENGTH = 5000;
 
+
+  
+
   useEffect(() => {
+    setIsUserAuthenticated(!!sessionToken);
     let answersData = []
     let answersActions = []
     const fetchData = async () => {
@@ -94,6 +99,15 @@ const QuestionPage = () => {
       toast.error('Введите ответ.');
       return;
     }
+
+    if (!isUserAuthenticated)
+    {
+      toast.error('Авторизуйтесь.');
+      return;
+    }
+      
+    
+
     
     try {
       const response = await fetch(`https://otvetoved.ru/api/v1/questions/${question_id}/answers`, { 
@@ -107,6 +121,8 @@ const QuestionPage = () => {
           session_token: sessionToken
         }),
       });
+
+      
 
       if (response.ok) {
         const newAnswerData = await response.json();
