@@ -20,7 +20,7 @@ class Question(BaseRelationalEntity):
     __tablename__ = 'question'
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    created_by_user_id: Mapped[int] = mapped_column(ForeignKey("user.id"), on_delete="cascade")
+    created_by_user_id: Mapped[int] = mapped_column(ForeignKey("user.id", ondelete="cascade"))
     brief: Mapped[str]
     text: Mapped[str]
     created_at: Mapped[datetime] = mapped_column(default=datetime.now)
