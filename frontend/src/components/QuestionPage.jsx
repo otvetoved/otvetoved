@@ -330,7 +330,7 @@ function getActionByType(userActionsData, answerId, action) {
             onChange={(e) => setNewAnswer(e.target.value)}
             maxLength={MAX_TEXT_LENGTH}
           ></textarea>
-           <small className="limit">{newAnswer.length}/{MAX_TEXT_LENGTH}</small>
+           <small className="limit-2">{newAnswer.length}/{MAX_TEXT_LENGTH}</small>
           <button className="submit-btn" type="submit">Отправить</button>
         </div>
       </form>

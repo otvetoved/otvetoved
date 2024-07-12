@@ -191,7 +191,16 @@
 
 .limit{
   color: #ffb60c;
-  padding:15px
+  padding:15px;
+  position: absolute;
+  right: 10;
+}
+
+
+.limit-2{
+  color: #ffb60c;
+  padding:15px;
+
 }
 
 .author{
