@@ -1,6 +1,6 @@
 import asyncio
 
-from dishka import make_async_container, Container, AsyncContainer
+from dishka import make_async_container, AsyncContainer
 from dishka.integrations.fastapi import setup_dishka
 from fastapi import FastAPI
 from sqladmin import Admin
