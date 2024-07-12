@@ -23,7 +23,7 @@ class User(BaseRelationalEntity):
     password: Mapped[str]
     created_at: Mapped[datetime] = mapped_column(default=datetime.now)
 
-    answers: Mapped[list[QuestionAnswer]] = relationship(lazy="selectin")
+    answers: Mapped[list[QuestionAnswer]] = relationship(lazy="selectin", back_populates="created_by_user")
     sessions: Mapped[list[UserSession]] = relationship(back_populates="user")
 
     def __str__(self):

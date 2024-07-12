@@ -58,7 +58,10 @@ class QuestionAnswer(BaseRelationalEntity):
     created_by_user_id: Mapped[int] = mapped_column(ForeignKey("user.id", ondelete="cascade"))
     text: Mapped[str]
     created_at: Mapped[datetime] = mapped_column(default=datetime.now)
-    rating: Mapped[list[UserAction]] = relationship(lazy="selectin")
+    rating: Mapped[list[UserAction]] = relationship(
+        lazy="selectin",
+        cascade="all, delete",
+    )
 
     created_by_user: Mapped[User] = relationship(lazy='selectin', back_populates="answers")
     question: Mapped[Question] = relationship(lazy="selectin", back_populates="answers")
