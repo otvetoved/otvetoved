@@ -27,7 +27,7 @@ class Question(BaseRelationalEntity):
 
     tags: Mapped[list[Tag]] = relationship(secondary=QuestionTag.__table__, lazy='selectin')
     created_by_user: Mapped[User] = relationship(lazy='selectin')
-    answers: Mapped[list[QuestionAnswer]] = relationship(lazy='selectin')
+    answers: Mapped[list[QuestionAnswer]] = relationship(lazy='selectin', back_populates="question")
 
 
 class UserAction(BaseRelationalEntity):
@@ -51,6 +51,7 @@ class QuestionAnswer(BaseRelationalEntity):
     rating: Mapped[list[UserAction]] = relationship(lazy="selectin")
 
     created_by_user: Mapped[User] = relationship(lazy='selectin')
+    question: Mapped[Question] = relationship(lazy="selectin", back_populates="answers")
 
     @property
     def likes(self):

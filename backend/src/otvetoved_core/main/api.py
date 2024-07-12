@@ -1,13 +1,18 @@
-from dishka import make_async_container
+import asyncio
+
+from dishka import make_async_container, Container, AsyncContainer
 from dishka.integrations.fastapi import setup_dishka
 from fastapi import FastAPI
+from sqladmin import Admin
 from uvicorn import run
 from fastapi.middleware.cors import CORSMiddleware
 
 from otvetoved_core.infrastructure.config import ConfigProvider
-from otvetoved_core.infrastructure.database import DatabaseProvider
+from otvetoved_core.infrastructure.database import DatabaseProvider, DatabaseEngine
 from otvetoved_core.presentation import api
 from otvetoved_core.presentation.api.schemas.tags_metadata import tags_metadata
+from otvetoved_core.presentation import admin
+
 
 app = FastAPI(
     root_path="/api",
@@ -29,12 +34,26 @@ app.add_middleware(
 app.include_router(api.router)
 
 
-def main():
+async def include_admin(container: AsyncContainer, app_instance):
+    engine = await container.get(DatabaseEngine)
+    admin_instance = Admin(app_instance, engine)
+
+    admin_instance.add_view(admin.user.UserView)
+    admin_instance.add_view(admin.question.QuestionView)
+    admin_instance.add_view(admin.question_answer.QuestionAnswerView)
+
+
+async def prepare():
     container = make_async_container(
         ConfigProvider(),
         DatabaseProvider(),
     )
+    await include_admin(container, app)
     setup_dishka(container, app)
+
+
+def main():
+    asyncio.run(prepare())
 
     run(
         app=app,

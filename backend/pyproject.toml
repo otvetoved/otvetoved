@@ -14,7 +14,8 @@ dependencies = [
     "sqlalchemy",
     "fastapi~=0.111.0",
     "alembic",
-    "bcrypt"
+    "bcrypt",
+    "sqladmin",
 ]
 
 
