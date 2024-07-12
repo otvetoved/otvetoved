@@ -4,8 +4,8 @@ import uuid
 from datetime import datetime
 
 from sqlalchemy import ForeignKey
-from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from otvetoved_core.domain.models import User
 from otvetoved_core.infrastructure.relational_entity import (
@@ -18,7 +18,7 @@ class UserSession(BaseRelationalEntity):
 
     session_token: Mapped[UUID] = mapped_column(UUID(as_uuid=True), default=uuid.uuid4)
     session_id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    user_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
+    user_id: Mapped[int] = mapped_column(ForeignKey("user.id", ondelete="cascade"))
     created_at: Mapped[datetime] = mapped_column(default=datetime.now)
 
     user: Mapped[User] = relationship(lazy='selectin')
