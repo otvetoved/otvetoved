@@ -29,6 +29,9 @@ class Question(BaseRelationalEntity):
     created_by_user: Mapped[User] = relationship(lazy='selectin')
     answers: Mapped[list[QuestionAnswer]] = relationship(lazy='selectin', back_populates="question")
 
+    def __str__(self):
+        return f"#{self.id} {self.brief}"
+
 
 class UserAction(BaseRelationalEntity):
     __tablename__ = 'user_answer'

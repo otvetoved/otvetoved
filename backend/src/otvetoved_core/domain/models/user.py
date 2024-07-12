@@ -26,6 +26,9 @@ class User(BaseRelationalEntity):
 
     answers: Mapped[list[QuestionAnswer]] = relationship(lazy="selectin")
 
+    def __str__(self):
+        return f"#{self.id} {self.username}"
+
     @property
     def user_rating(self):
         if len(self.answers) == 0:
