@@ -3,7 +3,7 @@
     justify-content: center;
     display:flex;
 	flex-direction: column;
-    margin-top: 187px;
+    margin-top: 80px;
 }
 
 .createQuestion{
@@ -30,6 +30,10 @@
 	touch-action: manipulation;  
 	vertical-align: top;
 	transition: box-shadow 0.2s;
+}
+
+.createQuestion.notAuth{
+	font-size: 26px !important;
 }
 
 .createQuestion:focus-visible {

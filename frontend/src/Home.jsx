@@ -45,7 +45,7 @@ function Home() {
             Создать вопрос
           </button>
         ) : (
-          <button className='createQuestion' disabled>
+          <button className='createQuestion notAuth' disabled>
             Вы должны быть авторизованы
           </button>
         )}
