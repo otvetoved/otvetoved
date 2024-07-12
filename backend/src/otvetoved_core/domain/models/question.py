@@ -61,7 +61,7 @@ class QuestionAnswer(BaseRelationalEntity):
     created_at: Mapped[datetime] = mapped_column(default=datetime.now)
     rating: Mapped[list[UserAction]] = relationship(lazy="selectin")
 
-    created_by_user: Mapped[User] = relationship(lazy='selectin')
+    created_by_user: Mapped[User] = relationship(lazy='selectin', back_populate="answers")
     question: Mapped[Question] = relationship(lazy="selectin", back_populates="answers")
 
     def __str__(self):
