@@ -33,7 +33,6 @@ class Question(BaseRelationalEntity):
     answers: Mapped[list[QuestionAnswer]] = relationship(
         lazy='selectin',
         back_populates="question",
-        cascade="all, delete",
     )
 
     def __str__(self):
