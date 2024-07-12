@@ -15,7 +15,7 @@ dependencies = [
     "fastapi~=0.111.0",
     "alembic",
     "bcrypt",
-    "sqladmin",
+    "sqladmin[full]",
 ]
 
 

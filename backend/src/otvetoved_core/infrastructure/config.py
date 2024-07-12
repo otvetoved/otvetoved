@@ -23,6 +23,12 @@ class DatabaseConfig(BaseModel):
         )
 
 
+class AdminPanelConfig(BaseModel):
+    username: str
+    password: str
+    secret_key: str
+
+
 class Config(BaseSettings):
     model_config = SettingsConfigDict(
         env_nested_delimiter="__",
@@ -32,6 +38,7 @@ class Config(BaseSettings):
     )
 
     database: DatabaseConfig
+    admin_panel: AdminPanelConfig
 
 
 class ConfigProvider(Provider):

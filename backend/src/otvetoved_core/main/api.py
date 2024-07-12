@@ -7,9 +7,10 @@ from sqladmin import Admin
 from uvicorn import run
 from fastapi.middleware.cors import CORSMiddleware
 
-from otvetoved_core.infrastructure.config import ConfigProvider
+from otvetoved_core.infrastructure.config import ConfigProvider, Config
 from otvetoved_core.infrastructure.database import DatabaseProvider, DatabaseEngine
 from otvetoved_core.presentation import api
+from otvetoved_core.presentation.admin.auth_backend import SQLAdminAuth
 from otvetoved_core.presentation.api.schemas.tags_metadata import tags_metadata
 from otvetoved_core.presentation import admin
 
@@ -36,7 +37,12 @@ app.include_router(api.router)
 
 async def include_admin(container: AsyncContainer, app_instance):
     engine = await container.get(DatabaseEngine)
-    admin_instance = Admin(app_instance, engine)
+    config = await container.get(Config)
+    admin_instance = Admin(
+        app_instance,
+        engine,
+        authentication_backend=SQLAdminAuth(config),
+    )
 
     admin_instance.add_view(admin.user.UserView)
     admin_instance.add_view(admin.question.QuestionView)
