@@ -22,3 +22,6 @@ class UserSession(BaseRelationalEntity):
     created_at: Mapped[datetime] = mapped_column(default=datetime.now)
 
     user: Mapped[User] = relationship(lazy='selectin')
+
+    def __str__(self):
+        return str(self.created_at)

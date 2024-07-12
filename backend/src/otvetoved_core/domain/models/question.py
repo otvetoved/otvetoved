@@ -30,7 +30,7 @@ class Question(BaseRelationalEntity):
     answers: Mapped[list[QuestionAnswer]] = relationship(lazy='selectin', back_populates="question")
 
     def __str__(self):
-        return f"#{self.id} {self.brief}"
+        return self.brief
 
 
 class UserAction(BaseRelationalEntity):
@@ -55,6 +55,9 @@ class QuestionAnswer(BaseRelationalEntity):
 
     created_by_user: Mapped[User] = relationship(lazy='selectin')
     question: Mapped[Question] = relationship(lazy="selectin", back_populates="answers")
+
+    def __str__(self):
+        return self.text
 
     @property
     def likes(self):

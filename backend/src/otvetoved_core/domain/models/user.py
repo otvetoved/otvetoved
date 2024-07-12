@@ -11,7 +11,7 @@ from otvetoved_core.infrastructure.relational_entity import (
 
 
 if TYPE_CHECKING:
-    from otvetoved_core.domain.models import QuestionAnswer
+    from otvetoved_core.domain.models import QuestionAnswer, UserSession
 
 
 class User(BaseRelationalEntity):
@@ -25,9 +25,10 @@ class User(BaseRelationalEntity):
     created_at: Mapped[datetime] = mapped_column(default=datetime.now)
 
     answers: Mapped[list[QuestionAnswer]] = relationship(lazy="selectin")
+    sessions: Mapped[list[UserSession]] = relationship(back_populates="user")
 
     def __str__(self):
-        return f"#{self.id} {self.username}"
+        return f"{self.username}"
 
     @property
     def user_rating(self):
