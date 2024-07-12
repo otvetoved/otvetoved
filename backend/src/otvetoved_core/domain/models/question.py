@@ -3,7 +3,7 @@ from __future__ import annotations
 from collections import Counter
 from datetime import datetime
 
-from sqlalchemy import ForeignKey, ForeignKeyConstraint
+from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from otvetoved_core.domain.models.tag import (
@@ -25,9 +25,16 @@ class Question(BaseRelationalEntity):
     text: Mapped[str]
     created_at: Mapped[datetime] = mapped_column(default=datetime.now)
 
-    tags: Mapped[list[Tag]] = relationship(secondary=QuestionTag.__table__, lazy='selectin')
+    tags: Mapped[list[Tag]] = relationship(
+        secondary=QuestionTag.__table__,
+        lazy='selectin',
+    )
     created_by_user: Mapped[User] = relationship(lazy='selectin')
-    answers: Mapped[list[QuestionAnswer]] = relationship(lazy='selectin', back_populates="question")
+    answers: Mapped[list[QuestionAnswer]] = relationship(
+        lazy='selectin',
+        back_populates="question",
+        cascade="all, delete",
+    )
 
     def __str__(self):
         return self.brief
