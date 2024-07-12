@@ -8,4 +8,5 @@ class UserView(ModelView, model=User):
         User.id,
         User.username,
         User.email,
+        User.sessions,
     ]

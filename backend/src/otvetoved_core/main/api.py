@@ -45,6 +45,7 @@ async def include_admin(container: AsyncContainer, app_instance):
     )
 
     admin_instance.add_view(admin.user.UserView)
+    admin_instance.add_view(admin.user_session.UserSessionView)
     admin_instance.add_view(admin.question.QuestionView)
     admin_instance.add_view(admin.question_answer.QuestionAnswerView)
 
