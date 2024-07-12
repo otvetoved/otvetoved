@@ -248,3 +248,10 @@
 .textAndLogo{
   display: inline;
 }
+
+.rating{
+  text-align: center;
+  color: #FFC94F;
+  padding: 2px;
+  font-weight: bold;
+}

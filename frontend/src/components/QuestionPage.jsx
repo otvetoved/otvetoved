@@ -21,6 +21,8 @@ const QuestionPage = () => {
   const MAX_TEXT_LENGTH = 5000;
 
 
+  const [userRatings, setUserRatings] = useState({});
+
   
 
   useEffect(() => {
@@ -91,6 +93,35 @@ const QuestionPage = () => {
   },[sessionToken]);
 
 
+
+  useEffect(() => {
+
+    const fetchUserRatings = async () => {
+      console.log("1")
+      try {
+        const userIds = new Set([...answers.map(answer => answer.created_by_user.id), question?.created_by_user.id]);
+        const promises = Array.from(userIds).map(async userId => {
+          const response = await fetch(`https://otvetoved.ru/api/v1/user/${userId}/total_rate`, {
+            headers: {
+              Authorization: `Bearer ${sessionToken}`
+            }
+          });
+          const dataRat = await response.json();
+          console.log(`data:${dataRat}`)
+          return { [userId]: dataRat.user_rating };
+        });
+        const ratings = await Promise.all(promises);
+        setUserRatings(Object.assign({}, ...ratings));
+      } catch (error) {
+        console.error('Failed to fetch user ratings:', error);
+      }
+    };
+    console.log(userRatings);
+
+    
+    
+    fetchUserRatings();
+  }, [answers, question, sessionToken]);
 
   const handleAnswerSubmit = async (e) => {
     e.preventDefault();
@@ -236,7 +267,7 @@ function getActionByType(userActionsData, answerId, action) {
         <div className="author-info">
           <div className="profile">
             <img className="user-question" src={user} alt="Аватарка" />
-            <div className="author-name">{question.created_by_user.username}</div>
+            <div className="author-name">{question.created_by_user.username} </div>
           </div>
           <div className="question-info">
             <div className="question-text">{question.text}</div>
@@ -265,7 +296,11 @@ function getActionByType(userActionsData, answerId, action) {
               <div className="author-info">
                 <div className="profile">
                   <img className="user-question" src={user} alt="Аватарка" />
-                  <div className="author-name">{answer.created_by_user.username}</div>
+                  <div className="author-name">{answer.created_by_user.username} 
+                  </div>
+                  <div className="rating">
+                  {((userRatings[answer.created_by_user.id] * 100).toFixed(0)) + '%'}
+                  </div>
                 </div>
                 <div className="answer-info">
                   <div className="answer-text">{answer.text}</div>
